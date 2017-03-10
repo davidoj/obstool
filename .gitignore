@@ -4,3 +4,4 @@ htdocs
 lib
 themes.css
 *.appcache
+migrations/00*
