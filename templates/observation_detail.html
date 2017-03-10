@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{label}}</title>
+    {{>head}}
+  </head>
+  <body>
+    <div data-role="page">
+      <div data-role="header">
+        {{>home}}
+        <h1>{{label}}</h1>
+        {{#page_config.can_change}}
+        <a href="{{rt}}/observations/{{id}}/edit" data-icon="edit" data-transition="flip">
+          Edit
+        </a>
+        {{/page_config.can_change}}
+      </div>
+      <div role="main" class="ui-content">
+          <h1>{{label}}</h1>
+          <table>
+            <tr>
+              <th>Observation Date</th>
+              <td>{{date}}</td>
+            </tr>
+            <tr>
+              <th>Observation Index</th>
+              <td>{{obsnum_label}}</td>
+            </tr>
+            <tr>
+              <th>Teacher</th>
+              <td>{{teacher_label}}</td>
+            </tr>
+            <tr>
+              <th>Observer</th>
+              <td>{{observer_label}}</td>
+            </tr>
+            <tr>
+              <th>Interactionobservations</th>
+              <td>
+                {{#interactionobservations}}
+                <table>
+                  <tr>
+                    <th>Minute</th>
+                    <td>{{minute}}</td>
+                  </tr>
+                  <tr>
+                    <th>Interaction Type</th>
+                    <td>{{intcode_label}}</td>
+                  </tr>
+                  <tr>
+                    <th>Power sharing</th>
+                    <td>{{evidenceDIPS}}</td>
+                  </tr>
+                  <tr>
+                    <th>Group Interactions</th>
+                    <td>{{studentint_label}}</td>
+                  </tr>
+                  <tr>
+                    <th>Teacher Location</th>
+                    <td>{{teacherloc_label}}</td>
+                  </tr>
+                </table>
+                <hr>
+                {{/interactionobservations}}
+              </td>
+            </tr>
+          </table>
+      </div>
+    </div>
+  </body>
+</html>

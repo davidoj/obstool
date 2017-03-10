@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{^id}}Add{{/id}}{{#id}}Edit{{/id}} observation</title>
+    {{>head}}
+  </head>
+  <body>
+    <div data-role="page">
+      <div data-role="header">
+        {{>home}}
+        <h1>{{^id}}Add{{/id}}{{#id}}Edit{{/id}} observation</h1>
+      </div>
+      <div role="main" class="ui-content">
+        <form action="{{svc}}/observations/{{id}}" method="post" data-ajax="false"
+            data-wq-json="true"
+            {{#outbox_id}}
+              data-wq-outbox-id="{{outbox_id}}"
+              data-wq-outbox-preserve=""
+            {{/outbox_id}}>
+          {{>csrf}}
+          {{#id}}
+          <input type=hidden name="_method" value="PUT">
+          {{/id}}
+          <ul data-role="listview" data-inset="true">
+            <li class="ui-field-contain">
+              <label for='observation-date'>Observation Date</label>
+              <input id='observation-date' type='date' data-xform-type='date' name='date' value="{{date}}">
+              <p class="hint">Enter observation date</p>
+              <p class='error observation-date-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <fieldset data-xform-type='select1' data-role='controlgroup' data-type='horizontal'>
+                <legend>Observation Index</legend>
+                {{#obsnum_choices}}
+                <input type='radio' id='observation-obsnum-{{name}}' name='obsnum' value='{{name}}'{{#selected}} checked{{/selected}}>
+                <label for='observation-obsnum-{{name}}'>{{label}}</label>
+                {{/obsnum_choices}}
+              </fieldset>
+              <p class='hint'>Is this the first or second observation?</p>
+              <p class='error observation-obsnum-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <label for='observation-teacher_id'>Teacher</label>
+              <select id='observation-teacher_id' data-xform-type='string' name='teacher_id' required>
+                <option value="">Select one...</option>
+                {{#teacher_list}}
+                <option value="{{id}}"{{#selected}} selected{{/selected}}>
+                 {{#outbox}}*{{/outbox}} {{label}}
+                </option>
+                {{/teacher_list}}
+              </select>
+              <p class='error observation-teacher_id-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <label for='observation-observer_id'>Observer</label>
+              <select id='observation-observer_id' data-xform-type='string' name='observer_id' required>
+                <option value="">Select one...</option>
+                {{#observer_list}}
+                <option value="{{id}}"{{#selected}} selected{{/selected}}>
+                 {{#outbox}}*{{/outbox}} {{label}}
+                </option>
+                {{/observer_list}}
+              </select>
+              <p class='error observation-observer_id-errors'></p>
+            </li>
+            <li data-role="list-divider">Interactionobservations</li>
+            {{#interactionobservations}}
+            {{#id}}
+            <input type="hidden" name="interactionobservations[{{@index}}][id]" value="{{id}}">
+            {{/id}}
+            <li class="ui-field-contain">
+              <label for='observation-interactionobservations-{{@index}}-minute'>Minute</label>
+              <input id='observation-interactionobservations-{{@index}}-minute' type='number' data-xform-type='int' name='interactionobservations[{{@index}}][minute]' value= {{#minute}}"{{minute}}"{{/minute}}{{^minute}}{{@index}}{{/minute}} required>
+              <p class="hint">How many minutes into the lesson is this observation?</p>
+              <p class='error observation-interactionobservations-{{@index}}-minute-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <fieldset data-xform-type='select1' data-role='controlgroup' data-type='horizontal'>
+                <legend>Interaction Type</legend>
+                {{#intcode_choices}}
+                <input type='radio' id='observation-interactionobservations-{{@index}}-intcode-{{name}}' name='interactionobservations[{{@index}}][intcode]' value='{{name}}'{{#selected}} checked{{/selected}}>
+                <label for='observation-interactionobservations-{{@index}}-intcode-{{name}}'>{{label}}</label>
+                {{/intcode_choices}}
+              </fieldset>
+              <p class='error observation-interactionobservations-{{@index}}-intcode-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <label for='observation-interactionobservations-{{@index}}-evidenceDIPS'>Power sharing</label>
+              <input id='observation-interactionobservations-{{@index}}-evidenceDIPS' type='text' data-xform-type='string' name='interactionobservations[{{@index}}][evidenceDIPS]' value="{{evidenceDIPS}}">
+              <p class="hint">Evidence of discursive interactions and power sharing strategies</p>
+              <p class='error observation-interactionobservations-{{@index}}-evidenceDIPS-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <fieldset data-xform-type='select1' data-role='controlgroup' data-type='horizontal'>
+                <legend>Group Interactions</legend>
+                {{#studentint_choices}}
+                <input type='radio' id='observation-interactionobservations-{{@index}}-studentint-{{name}}' name='interactionobservations[{{@index}}][studentint]' value='{{name}}'{{#selected}} checked{{/selected}}>
+                <label for='observation-interactionobservations-{{@index}}-studentint-{{name}}'>{{label}}</label>
+                {{/studentint_choices}}
+              </fieldset>
+              <p class='hint'>Which students are the teacher interacting with?</p>
+              <p class='error observation-interactionobservations-{{@index}}-studentint-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <fieldset data-xform-type='select1' data-role='controlgroup' data-type='horizontal'>
+                <legend>Teacher Location</legend>
+                {{#teacherloc_choices}}
+                <input type='radio' id='observation-interactionobservations-{{@index}}-teacherloc-{{name}}' name='interactionobservations[{{@index}}][teacherloc]' value='{{name}}'{{#selected}} checked{{/selected}}>
+                <label for='observation-interactionobservations-{{@index}}-teacherloc-{{name}}'>{{label}}</label>
+                {{/teacherloc_choices}}
+              </fieldset>
+              <p class='error observation-interactionobservations-{{@index}}-teacherloc-errors'></p>
+            </li>
+            <li data-role="list-divider"></li>
+            <li class="section-interactionobservations"></li>
+            {{/interactionobservations}}
+            <li>
+              <button type="button" data-wq-action="addattachment" data-wq-section="interactionobservations">
+                 Add Interactionobservations
+              </button>
+            </li>
+            <li>
+              <div class="ui-grid-a">
+                <div class="ui-block-a">
+                  <a href="{{rt}}/observations/{{id}}" data-role="button" data-icon="back" data-direction="reverse">
+                    Back
+                  </a>
+                </div>
+                <div class="ui-block-b">
+                  <button type="submit" data-icon="check" data-theme="b">
+                    Submit
+                  </button>
+                </div>
+              </div>
+              <p class="error observation-errors"></p>
+            </li>
+          </ul>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
