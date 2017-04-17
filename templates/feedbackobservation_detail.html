@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{label}}</title>
+    {{>head}}
+  </head>
+  <body>
+    <div data-role="page">
+      <div data-role="header">
+        {{>home}}
+        <h1>{{label}}</h1>
+        {{#page_config.can_change}}
+        <a href="{{rt}}/Feedbackobservations/{{id}}/edit" data-icon="edit" data-transition="flip">
+          Edit
+        </a>
+        {{/page_config.can_change}}
+      </div>
+      <div role="main" class="ui-content">
+          <h1>{{label}}</h1>
+          <table>
+            <tr>
+              <th>Observation Date</th>
+              <td>{{date}}</td>
+            </tr>
+            <tr>
+              <th>Observation Index</th>
+              <td>{{obsnum_label}}</td>
+            </tr>
+            <tr>
+              <th>Teacher</th>
+              <td>{{teacher_label}}</td>
+            </tr>
+            <tr>
+              <th>Observer</th>
+              <td>{{observer_label}}</td>
+            </tr>
+            <tr>
+              <th>Interactions</th>
+              <td>
+                {{#interactions}}
+                <table>
+                  <tr>
+                    <th>Minute</th>
+                    <td>{{minute}}</td>
+                  </tr>
+                  <tr>
+                    <th>First 10 seconds</th>
+                    <td>{{first10}}</td>
+                  </tr>
+                  <tr>
+                    <th>Location</th>
+                    <td>{{location_label}}</td>
+                  </tr>
+                  <tr>
+                    <th>Aspirational feedback</th>
+                    <td>{{aspiration_feedback}}</td>
+                  </tr>
+                  <tr>
+                    <th>Just in time</th>
+                    <td>{{jit_feedback}}</td>
+                  </tr>
+                  <tr>
+                    <th>Where, how, where next</th>
+                    <td>{{whw_feedback}}</td>
+                  </tr>
+                  <tr>
+                    <th>Task Feedback</th>
+                    <td>{{task_feedback}}</td>
+                  </tr>
+                  <tr>
+                    <th>Process Feedback</th>
+                    <td>{{process_feedback}}</td>
+                  </tr>
+                  <tr>
+                    <th>Self-regulation feedback</th>
+                    <td>{{sr_feedback}}</td>
+                  </tr>
+                  <tr>
+                    <th>Praise</th>
+                    <td>{{praise}}</td>
+                  </tr>
+                  <tr>
+                    <th>Peer Feedback</th>
+                    <td>{{peer_feedback}}</td>
+                  </tr>
+                  <tr>
+                    <th>Seeking Feedback</th>
+                    <td>{{seeking_feedback}}</td>
+                  </tr>
+                  <tr>
+                    <th>Other</th>
+                    <td>{{other}}</td>
+                  </tr>
+                </table>
+                <hr>
+                {{/interactions}}
+              </td>
+            </tr>
+          </table>
+      </div>
+    </div>
+  </body>
+</html>

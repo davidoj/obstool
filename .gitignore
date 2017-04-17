@@ -1,6 +1,7 @@
 *.pyc
+local_setting.py
 htdocs
 lib
 themes.css
 *.appcache
-migrations/00*
+migrations/*

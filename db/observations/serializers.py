@@ -1,18 +1,18 @@
 from wq.db.rest.serializers import ModelSerializer
 from wq.db.patterns import serializers as patterns
-from .models import InteractionObservation, Observation
+from .models import FBInteraction, FeedbackObservation
 
-class InteractionObservationSerializer(patterns.AttachmentSerializer):
+class FBSerializer(patterns.AttachmentSerializer):
     class Meta(patterns.AttachmentSerializer.Meta):
-        model = InteractionObservation
+        model = FBInteraction
         exclude = ('observation',)
         object_field = 'observation'
         wq_config = {
-            'initial': 20,
+            'initial': 15,
         }
 
-class ObservationSerializer(patterns.AttachedModelSerializer):
-    interactionobservations = InteractionObservationSerializer(many=True)
+class FBObservationSerializer(patterns.AttachedModelSerializer):
+    interactions = FBSerializer(many=True)
     class Meta:
-        model = Observation
+        model = FeedbackObservation
         fields = '__all__'

@@ -1,1 +1,1 @@
-web: gunicorn gettingstarted.wsgi --log-file -
+web: env PYTHONPATH=$PYTHONPATH:$PWD/db gunicorn obstool.wsgi --log-file -

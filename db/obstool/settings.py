@@ -17,13 +17,41 @@ http://wq.io/docs/settings
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import dj_database_url
+
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)),os.pardir),os.pardir))
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.9/howto/static-files/
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'htdocs')
+STATIC_URL = '/static/'
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'htdocs/js'),
+    os.path.join(PROJECT_ROOT, 'htdocs/images'),
+    os.path.join(PROJECT_ROOT, 'htdocs/css')
+)
+
 # wq: extra dirname() to account for db/ folder
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 # wq: SECRET_KEY and DEBUG are defined in local_settings.py
 
-ALLOWED_HOSTS = ["obstool",'127.0.0.1']
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
+db_from_env = dj_database_url.config()
+DATABASES = {
+    'default': {'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': ''}
+}
+DATABASES['default'].update(db_from_env)
+
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
