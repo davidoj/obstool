@@ -33,16 +33,6 @@
               <p class='error teacher-lastname-errors'></p>
             </li>
             <li class="ui-field-contain">
-              <fieldset data-xform-type='select1' data-role='controlgroup' data-type='horizontal'>
-                <legend>Teacher Identifier</legend>
-                {{#identifier_choices}}
-                <input type='radio' id='teacher-identifier-{{name}}' name='identifier' value='{{name}}'{{#selected}} checked{{/selected}}>
-                <label for='teacher-identifier-{{name}}'>{{label}}</label>
-                {{/identifier_choices}}
-              </fieldset>
-              <p class='error teacher-identifier-errors'></p>
-            </li>
-            <li class="ui-field-contain">
               <label for='teacher-school_id'>Teacher&#x27;s School</label>
               <select id='teacher-school_id' data-xform-type='string' name='school_id' required>
                 <option value="">Select one...</option>
@@ -53,6 +43,16 @@
                 {{/school_list}}
               </select>
               <p class='error teacher-school_id-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <fieldset data-xform-type='select one' data-role='controlgroup' data-type='horizontal'>
+                <legend>Teacher Identifier</legend>
+                {{#identifier_choices}}
+                <input type='radio' id='teacher-identifier-{{name}}' name='identifier' value='{{name}}'{{#selected}} checked{{/selected}}>
+                <label for='teacher-identifier-{{name}}'>{{label}}</label>
+                {{/identifier_choices}}
+              </fieldset>
+              <p class='error teacher-identifier-errors'></p>
             </li>
             <li>
               <div class="ui-grid-a">

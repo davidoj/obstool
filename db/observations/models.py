@@ -52,6 +52,15 @@ class School(models.Model):
     def __str__(self):
         return self.name
 
+class Obsform(models.Model):
+    name = models.CharField(
+        max_length=50)
+    def __str__(self):
+        return self.name + "observation template"
+    class Meta:
+        verbose_name='Observation template'
+        verbose_name_plural='Observation templates'
+
 class Observation(models.Model):
     date = models.DateField(
         default=date.today,
@@ -70,9 +79,19 @@ class Observation(models.Model):
     class Meta:
         verbose_name = 'observation'
         verbose_name_plural = 'observations'
+        abstract = True
 
     def __str__(self):
         return 'Observation {} on {}'.format(self.obsnum, self.date)
+
+class ReviewObservation(Observation):
+    class Meta:
+        verbose_name = 'Review observation'
+        verbose_name_plural = 'Review observations'
+
+    def __str__(self):
+        return 'Observation {} on {} (review)'.format(self.obsnum, self.date)    
+
 
 class FeedbackObservation(Observation):
 
@@ -84,6 +103,10 @@ class FeedbackObservation(Observation):
         return 'Observation {} on {} (feedback focus)'.format(self.obsnum, self.date)    
 
 class Item(models.Model):
+    form = models.ForeignKey(
+        'Obsform',
+        on_delete=models.CASCADE,
+        related_name='items')
     name = models.CharField(
         max_length=100,
         help_text='short name')
@@ -102,14 +125,17 @@ class Item(models.Model):
         return self.name
 
 
-class ItemObservation(models.Model):
-    observation = models.ForeignKey('Observation', on_delete=models.CASCADE)
-    item = models.ForeignKey('Item', on_delete=models.CASCADE)
+class Result(models.Model):
+    observation = models.ForeignKey('ReviewObservation', on_delete=models.CASCADE, related_name='results')
+    item = models.ForeignKey('Item', on_delete=models.CASCADE, related_name='results')
 
     def __str__(self):
         return 'Observation of item {} from {}'.format(self.item, self.observation)
 
-class NumberedItemObservation(ItemObservation):
+    class Meta:
+        abstract=True
+
+class NumberedResult(Result):
     score = models.IntegerField(
         choices = [
             (1,'1 (No evidence)'),
@@ -120,9 +146,11 @@ class NumberedItemObservation(ItemObservation):
         ],
         verbose_name='Score',
         help_text='How much evidence of this item did you see')
-    notes = models.CharField(
-        max_length=5000,
-        verbose_name='Notes')
+    notes = models.TextField(
+        verbose_name='Notes',
+        blank=True,
+        default='')
+
 
 class MbMInteraction(models.Model):
     """ Minute-by-minute observation"""

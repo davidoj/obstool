@@ -28,7 +28,7 @@
               <p class='error school-name-errors'></p>
             </li>
             <li class="ui-field-contain">
-              <fieldset data-xform-type='select1' data-role='controlgroup' data-type='horizontal'>
+              <fieldset data-xform-type='select one' data-role='controlgroup' data-type='horizontal'>
                 <legend>Region</legend>
                 {{#region_choices}}
                 <input type='radio' id='school-region-{{name}}' name='region' value='{{name}}'{{#selected}} checked{{/selected}}>
@@ -38,7 +38,7 @@
               <p class='error school-region-errors'></p>
             </li>
             <li class="ui-field-contain">
-              <fieldset data-xform-type='select1' data-role='controlgroup' data-type='horizontal'>
+              <fieldset data-xform-type='select one' data-role='controlgroup' data-type='horizontal'>
                 <legend>Remoteness</legend>
                 {{#remoteness_choices}}
                 <input type='radio' id='school-remoteness-{{name}}' name='remoteness' value='{{name}}'{{#selected}} checked{{/selected}}>

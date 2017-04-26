@@ -1,5 +1,5 @@
 *.pyc
-local_setting.py
+*local_setting.py
 htdocs
 lib
 themes.css

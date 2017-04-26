@@ -1,0 +1,21 @@
+
+<li class="ui-field-contain">
+  <input type="hidden" name="results[{{@index}}][item_id]" value="{{item_id}}">
+  <label for="result-{{@index}}-score">
+    {{item_desc}}
+  </label>
+  <fieldset data-xform-type='select1' data-role='controlgroup' data-type='horizontal'>
+    {{#score_choices}}
+    <input type='radio' id='reviewobservation-results-{{@index}}-score-{{name}}' name='results[{{@index}}][score]' value='{{name}}'{{#selected}} checked{{/selected}}>
+    <label for='reviewobservation-results-{{@index}}-score-{{name}}'>{{label}}</label>
+    {{/score_choices}}
+  </fieldset>
+  <p class='hint'>How much evidence of this item did you see</p>
+  <p class='error reviewobservation-results-{{@index}}-score-errors'></p>
+  <label for="result-{{@index}}-notes">
+    Notes
+  </label>
+  <input name="results[{{@index}}][notes]" id="result-{{@index}}-notes"
+   >{{notes}}</textarea>
+  <p class="error reviewobservation-results-{{@index}}-notes-errors"></p>
+</li>

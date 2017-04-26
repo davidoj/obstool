@@ -8,9 +8,9 @@ config.router = {
 config.template = {
     'templates': templates,
     'defaults': {
-        'version': version
+        'version': version,
     }
-};
+}
 
 config.store = {
     'service': config.router.base_url,
@@ -22,6 +22,8 @@ config.map = {
 };
 
 config.outbox = {};
+
+config.backgroundSync = -1;
 
 config.transitions = {
     'default': "slide",
