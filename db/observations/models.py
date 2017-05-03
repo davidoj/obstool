@@ -93,7 +93,7 @@ class ReviewObservation(Observation):
         return 'Observation {} on {} (review)'.format(self.obsnum, self.date)    
 
 
-class FeedbackObservation(Observation):
+class DataObservation(Observation):
 
     class Meta:
         verbose_name = 'Feedback observation'
@@ -152,8 +152,12 @@ class NumberedResult(Result):
         default='')
 
 
-class MbMInteraction(models.Model):
+class MbMData(models.Model):
     """ Minute-by-minute observation"""
+    observation = models.ForeignKey(
+        'DataObservation', 
+        on_delete=models.CASCADE,
+        related_name='interactions')
     minute = models.IntegerField(
         verbose_name='Minute',
         help_text='How many minutes into the lesson is this observation?')
@@ -161,7 +165,6 @@ class MbMInteraction(models.Model):
         default='',
         blank=True,
         verbose_name='First 10 seconds')
-
     location = models.CharField(
         max_length=2,
         choices=(
@@ -177,14 +180,7 @@ class MbMInteraction(models.Model):
         blank=True,
         verbose_name='Rest of minute')
 
-    def __str__(self):
-        return "Minute {} of observation {}".format(self.minute, self.observation)
-
-    class Meta:
-        verbose_name = 'Minute by minute observation'
-        verbose_name_plural = 'Minute by minute observations'
-
-class KtIInteraction(MbMInteraction):
+    # Know Thine Impact interactions
     learning_evidence = models.BooleanField(
         default=False,
         verbose_name='Gathering Evidence',
@@ -201,17 +197,8 @@ class KtIInteraction(MbMInteraction):
         default=False,
         verbose_name='Students sharing understanding',
         help_text='The student(s) are sharing their understanding of learning')
-    other = models.CharField(
-        max_length=1000,
-        verbose_name='Other',
-        help_text='Please be specific',
-        blank=True,
-        default='')
-    class Meta:
-        verbose_name='Know thine Impact observation'
-        verbose_name_plural='Know thine Impact observations'
-
-class IPTInteraction(MbMInteraction):
+    
+    # Inspired and Passionate Teaching interactions
     demonstrating_care = models.BooleanField(
         default=False,
         verbose_name='Relational trust',
@@ -247,21 +234,8 @@ class IPTInteraction(MbMInteraction):
         default=False,
         verbose_name='Wide range of strategies',
         help_text='Using a wide range of instructional strategies')
-    other = models.CharField(
-        max_length=1000,
-        verbose_name='Other',
-        help_text='Please be specific',
-        blank=True,
-        default='')
-    class Meta:
-        verbose_name='Inspired and Passionate Teaching observation'
-        verbose_name_plural='Inspired and Passionate observations'
 
-class FBInteraction(MbMInteraction):
-    observation = models.ForeignKey(
-        'FeedbackObservation', 
-        on_delete=models.CASCADE,
-        related_name='interactions')
+    # Feedback interactions
     aspiration_feedback = models.BooleanField(
         default=False,
         verbose_name='Aspirational feedback',
@@ -303,7 +277,17 @@ class FBInteraction(MbMInteraction):
         help_text='Please be specific',
         blank=True,
         default='')
-    class Meta:
-        verbose_name='Effective Feedback Teaching observation'
-        verbose_name_plural='Effective Feedback observations'
 
+    other = models.CharField(
+        max_length=1000,
+        verbose_name='Other',
+        help_text='Please be specific',
+        blank=True,
+        default='')
+
+    def __str__(self):
+        return "Minute {} of observation {}".format(self.minute, self.observation)
+
+    class Meta:
+        verbose_name = 'Minute by minute datum'
+        verbose_name_plural = 'Minute by minute data'
