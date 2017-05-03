@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>item List{{#parent_id}} for {{parent_label}}{{/parent_id}}</title>
+    <title>reviewobservation List{{#parent_id}} for {{parent_label}}{{/parent_id}}</title>
     {{>head}}
   </head>
   <body>
     <div data-role="page" data-wq-sync-refresh="true">
       <div data-role="header">
         {{>home}}
-        <h1>item List{{#parent_id}} for {{parent_label}}{{/parent_id}}</h1>
+        <h1>reviewobservation List{{#parent_id}} for {{parent_label}}{{/parent_id}}</h1>
         {{#page_config.can_edit}}
-        <a href="{{rt}}/observationitems/new" data-icon="plus">
+        <a href="{{rt}}/Reviewobservations/new" data-icon="plus">
           Add New
         </a>
         {{/page_config.can_edit}}
@@ -64,11 +64,11 @@
             {{/unsynced}}
             {{#list}}
             <li>
-              <a href="{{rt}}/observationitems/{{id}}">{{label}}</a>
+              <a href="{{rt}}/Reviewobservations/{{id}}">{{label}}</a>
             </li>
             {{/list}}
             <li data-icon="plus" data-theme="b">
-              <a href="{{rt}}/observationitems/new{{#parent_id}}?{{parent_page}}_id={{parent_id}}{{/parent_id}}">Add item</a>
+              <a href="{{rt}}/Reviewobservations/new{{#parent_id}}?{{parent_page}}_id={{parent_id}}{{/parent_id}}">Add reviewobservation</a>
             </li>
           </ul>
       </div>

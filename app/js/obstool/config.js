@@ -23,7 +23,7 @@ config.map = {
 
 config.outbox = {};
 
-config.backgroundSync = -1;
+// config.backgroundSync = 1;
 
 config.transitions = {
     'default': "slide",

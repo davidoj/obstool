@@ -29,7 +29,7 @@
               <p class='error reviewobservation-date-errors'></p>
             </li>
             <li class="ui-field-contain">
-              <fieldset data-xform-type='select one' data-role='controlgroup' data-type='horizontal'>
+              <fieldset data-xform-type='select1' data-role='controlgroup' data-type='horizontal'>
                 <legend>Observation Index</legend>
                 {{#obsnum_choices}}
                 <input type='radio' id='reviewobservation-obsnum-{{name}}' name='obsnum' value='{{name}}'{{#selected}} checked{{/selected}}>
@@ -65,38 +65,7 @@
             </li>
             <li data-role="list-divider">Results</li>
             {{#results}}
-            {{#id}}
-            <input type="hidden" name="results[{{@index}}][id]" value="{{id}}">
-            {{/id}}
-            <li class="ui-field-contain">
-              <label for='reviewobservation-results-{{@index}}-item_id'>Item</label>
-              <select id='reviewobservation-results-{{@index}}-item_id' data-xform-type='string' name='results[{{@index}}][item_id]' required>
-                <option value="">Select one...</option>
-                {{#item_list}}
-                <option value="{{id}}"{{#selected}} selected{{/selected}}>
-                 {{#outbox}}*{{/outbox}} {{label}}
-                </option>
-                {{/item_list}}
-              </select>
-              <p class='error reviewobservation-results-{{@index}}-item_id-errors'></p>
-            </li>
-            <li class="ui-field-contain">
-              <fieldset data-xform-type='select one' data-role='controlgroup' data-type='horizontal'>
-                <legend>Score</legend>
-                {{#score_choices}}
-                <input type='radio' id='reviewobservation-results-{{@index}}-score-{{name}}' name='results[{{@index}}][score]' value='{{name}}'{{#selected}} checked{{/selected}}>
-                <label for='reviewobservation-results-{{@index}}-score-{{name}}'>{{label}}</label>
-                {{/score_choices}}
-              </fieldset>
-              <p class='hint'>How much evidence of this item did you see</p>
-              <p class='error reviewobservation-results-{{@index}}-score-errors'></p>
-            </li>
-            <li class="ui-field-contain">
-              <label for='reviewobservation-results-{{@index}}-notes'>Notes</label>
-              <textarea id='reviewobservation-results-{{@index}}-notes' name='results[{{@index}}][notes]' data-xform-type="text" required>{{notes}}</textarea>
-              <p class='error reviewobservation-results-{{@index}}-notes-errors'></p>
-            </li>
-            <li class="section-results"></li>
+            {{>results_inline}}
             {{/results}}
             <li>
               <button type="button" data-wq-action="addattachment" data-wq-section="results">

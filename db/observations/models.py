@@ -157,8 +157,7 @@ class MbMInteraction(models.Model):
     minute = models.IntegerField(
         verbose_name='Minute',
         help_text='How many minutes into the lesson is this observation?')
-    first10 = models.CharField(
-        max_length=5000,
+    first10 = models.TextField(
         default='',
         blank=True,
         verbose_name='First 10 seconds')
@@ -173,6 +172,10 @@ class MbMInteraction(models.Model):
         verbose_name='Location',
         blank=True,
         default='')
+    rest = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Rest of minute')
 
     def __str__(self):
         return "Minute {} of observation {}".format(self.minute, self.observation)
@@ -304,44 +307,3 @@ class FBInteraction(MbMInteraction):
         verbose_name='Effective Feedback Teaching observation'
         verbose_name_plural='Effective Feedback observations'
 
-# class MbMItemObservation(models.Model):
-#     mbmobservation = models.ForeignKey('MbMObservation', on_delete=models.CASCADE)
-#     item = models.ForeignKey('VLItem', on_delete=models.CASCADE)
-
-#     def __str__(self):
-#         return 'Observation of item {} from {}'.format(self.item, self.observation)
-            # intcode = models.CharField(
-    #     max_length=2,
-    #     default='',
-    #     blank=True,
-    #     choices= [
-    #         ('','NA'),
-    #         ('P','Prior learning'),
-    #         ('FB','Feedback on learning'),
-    #         ('FF','Feed-forward support'),
-    #         ('Co','Co-construction')],
-    #     verbose_name = 'Interaction Type')
-    # evidenceDIPS = models.CharField(
-    #     max_length=2000, 
-    #     blank=True, 
-    #     default='',
-    #     verbose_name='Power sharing',
-    #     help_text='Evidence of discursive interactions and power sharing strategies')
-    # studentint = models.CharField(
-    #     max_length=1,
-    #     choices= [
-    #         ('I','Indigenous or minoritised student'),
-    #         ('O','Interaction with other student')], 
-    #     blank=True, 
-    #     default='',
-    #     verbose_name='Group Interactions',
-    #     help_text='Which students is the teacher interacting with?')
-    # teacherloc = models.CharField(max_length=1, 
-    #     blank=True, 
-    #     default='',
-    #     choices=[
-    #         ('','NA'),
-    #         ('S','Stationary'),
-    #         ('I','Moving around room'),
-    #         ('O','Out of room')],
-    #     verbose_name='Teacher Location')
