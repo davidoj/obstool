@@ -96,11 +96,11 @@ class ReviewObservation(Observation):
 class DataObservation(Observation):
 
     class Meta:
-        verbose_name = 'Feedback observation'
-        verbose_name_plural = 'Feedback observations'
+        verbose_name = 'Data observation'
+        verbose_name_plural = 'Data observations'
 
     def __str__(self):
-        return 'Observation {} on {} (feedback focus)'.format(self.obsnum, self.date)    
+        return 'Observation {} on {} (data)'.format(self.obsnum, self.date)    
 
 class Item(models.Model):
     form = models.ForeignKey(
