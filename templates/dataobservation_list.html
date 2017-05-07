@@ -10,7 +10,7 @@
         {{>home}}
         <h1>dataobservation List{{#parent_id}} for {{parent_label}}{{/parent_id}}</h1>
         {{#page_config.can_edit}}
-        <a href="{{rt}}/Feedbackobservations/new" data-icon="plus">
+        <a href="{{rt}}/Dataobservations/new" data-icon="plus">
           Add New
         </a>
         {{/page_config.can_edit}}
@@ -64,11 +64,11 @@
             {{/unsynced}}
             {{#list}}
             <li>
-              <a href="{{rt}}/Feedbackobservations/{{id}}">{{label}}</a>
+              <a href="{{rt}}/Dataobservations/{{id}}">{{label}}</a>
             </li>
             {{/list}}
             <li data-icon="plus" data-theme="b">
-              <a href="{{rt}}/Feedbackobservations/new{{#parent_id}}?{{parent_page}}_id={{parent_id}}{{/parent_id}}">Add dataobservation</a>
+              <a href="{{rt}}/Dataobservations/new{{#parent_id}}?{{parent_page}}_id={{parent_id}}{{/parent_id}}">Add dataobservation</a>
             </li>
           </ul>
       </div>

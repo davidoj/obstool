@@ -7,7 +7,7 @@ interesting and unique designs, styles and layouts.  The sky is the limit!
 -->
 <html manifest="obstool.appcache">
   <head>
-    <title>obstool Project</title>
+    <title>Barkly Teacher Observations</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="manifest" href="manifest.json">
     {{>head}}
@@ -15,16 +15,24 @@ interesting and unique designs, styles and layouts.  The sky is the limit!
   <body>
     <div data-role="page" class="ui-page">
       <div data-role="header">
-        <h1>obstool Project</h1>
+        <h1>Barkly Teacher Observations</h1>
       </div>
       <div role="main" class="ui-content">
-        <p>Hello, world!</p>
         <ul data-role="listview">
           <!-- Note: in many cases, you will want to replace this with a
           hardcoded list of links (rather than the default pages list) -->
-          {{#pages}}
-          <li><a href="{{rt}}/{{url}}{{#list}}/{{/list}}">{{name}} {{#list}}list{{/list}}</a></li>
-          {{/pages}}
+          {{^is_authenticated}}
+          <li><a href="{{rt}}/login"> Login </a></li>
+          {{/is_authenticated}}
+          {{#is_authenticated}}
+          <li><a href="{{rt}}/Dataobservations/new">Create data observation</a></li>
+          <li><a href="{{rt}}/Dataobservations">View my data observations</a></li>
+          <li><a href="{{rt}}/Observationtemplates/new">Create review template</a></li>
+          <li><a href="{{rt}}/teachers"> View/Add teachers </a></li>
+          <li><a href="{{rt}}/observers"> View/Add observers </a></li>
+          <li><a href="{{rt}}/schools"> View/Add schools </a></li>
+          <li><a href="{{rt}}/logout"> Logout </a></li>
+          {{/is_authenticated}}
         </ul>
       </div>
       <p class="footer">

@@ -11,7 +11,7 @@
         <h1>{{^id}}Add{{/id}}{{#id}}Edit{{/id}} Data Observation</h1>
       </div>
       <div role="main" class="ui-content">
-        <form action="{{svc}}/Feedbackobservations/{{id}}" method="post" data-ajax="false"
+        <form action="{{svc}}/Dataobservations/{{id}}" method="post" data-ajax="false"
             data-wq-json="true"
             {{#outbox_id}}
               data-wq-outbox-id="{{outbox_id}}"
@@ -68,9 +68,9 @@
             {{#id}}
             <input type="hidden" name="interactions[{{@index}}][id]" value="{{id}}">
             {{/id}}
-            <div class="ui-grid-{{#mode}}{{mode}}{{/mode}}{{^mode}}solo{{/mode}} ui-responsive">
+            <div class="ui-grid-{{#id}}c{{/id}}{{^id}}solo{{/id}} ui-responsive">
               <div class="ui-block-a">
-              {{^id}}
+                {{^id}}
                 <li class="ui-field-contain">
                   <label for='dataobservation-interactions-{{@index}}-minute'>Minute</label>
                   <input id='dataobservation-interactions-{{@index}}-minute' type='number' data-xform-type='int' name='interactions[{{@index}}][minute]' required value="{{@index}}">
@@ -99,35 +99,6 @@
                 </li>
                 {{/id}}
                 {{#id}}
-                {{#editdata}}
-                <li class="ui-field-contain">
-                  <label for='dataobservation-interactions-{{@index}}-minute'>Minute</label>
-                  <input id='dataobservation-interactions-{{@index}}-minute' type='number' data-xform-type='int' name='interactions[{{@index}}][minute]' required value="{{minute}}">
-                  <p class="hint">How many minutes into the lesson is this observation?</p>
-                  <p class='error dataobservation-interactions-{{@index}}-minute-errors'></p>
-                </li>
-                <li class="ui-field-contain">
-                  <label for='dataobservation-interactions-{{@index}}-first10'>First 10 seconds</label>
-                  <textarea id='dataobservation-interactions-{{@index}}-first10' name='interactions[{{@index}}][first10]' data-xform-type="text">{{first10}}</textarea>
-                  <p class='error dataobservation-interactions-{{@index}}-first10-errors'></p>
-                </li>
-                <li class="ui-field-contain">
-                  <fieldset data-xform-type='select one' data-role='controlgroup' data-type='horizontal'>
-                    <legend>Location</legend>
-                    {{#location_choices}}
-                    <input type='radio' id='dataobservation-interactions-{{@index}}-location-{{name}}' name='interactions[{{@index}}][location]' value='{{name}}'{{#selected}} checked{{/selected}}>
-                    <label for='dataobservation-interactions-{{@index}}-location-{{name}}'>{{label}}</label>
-                    {{/location_choices}}
-                  </fieldset>
-                  <p class='error dataobservation-interactions-{{@index}}-location-errors'></p>
-                </li>
-                <li class="ui-field-contain">
-                  <label for='dataobservation-interactions-{{@index}}-rest'>Rest of minute</label>
-                  <textarea id='dataobservation-interactions-{{@index}}-rest' name='interactions[{{@index}}][rest]' data-xform-type="text" >{{rest}}</textarea>
-                  <p class='error dataobservation-interactions-{{@index}}-rest-errors'></p>
-                </li>
-                {{/editdata}}
-                {{^editdata}}
                 <input type="hidden" name="interactions[{{@index}}][minute]" value="{{minute}}">
                 <input type="hidden" name="interactions[{{@index}}][first10]" value="{{first10}}">
                 <input type="hidden" name="interactions[{{@index}}][location]" value="{{location}}">
@@ -150,10 +121,9 @@
                     <td>{{rest}}</td>
                   </tr>
                 </table>
-              {{/editdata}}
-              {{/id}}
+                {{/id}}
               </div>
-              {{#kti}}
+              {{#id}}
               <div class="ui-block-b">
                 <h3>Know Thine Impact</h3>
                 <li class="ui-field-contain">
@@ -177,15 +147,8 @@
                   <p class='error dataobservation-interactions-{{@index}}-sharing_understanding-errors'></p>
                 </li>
               </div>  
-              {{/kti}}
-              {{^kti}}
-              <input type="hidden" name="interactions[{{@index}}][learning_evidence]" value="{{learning_evidence}}">
-              <input type="hidden" name="interactions[{{@index}}][evaluating_effect]" value="{{evaluating_effect}}">
-              <input type="hidden" name="interactions[{{@index}}][acting_knowledge]" value="{{acting_knowledge}}">
-              <input type="hidden" name="interactions[{{@index}}][sharing_understanding]" value="{{sharing_understanding}}">
-              {{/kti}}
-              {{#ipt}}
-              <div class="ui-block-b">
+
+              <div class="ui-block-c">
                 <h3>Inspired and Passionate Teaching</h3>
                 <li class="ui-field-contain">
                   <label for='dataobservation-interactions-{{@index}}-demonstrating_care'>Demonstrating relational trust</label>
@@ -234,20 +197,9 @@
                   <p class='error dataobservation-interactions-{{@index}}-range_strategies-errors'></p>
                 </li>
               </div>
-              {{/ipt}}
-              {{^ipt}}
-              <input type="hidden" name="interactions[{{@index}}][demonstrating_care]" value="{{demonstrating_care}}">
-              <input type="hidden" name="interactions[{{@index}}][providing_feedback]" value="{{providing_feedback}}">
-              <input type="hidden" name="interactions[{{@index}}][dialogue]" value="{{dialogue}}">
-              <input type="hidden" name="interactions[{{@index}}][safe_classroom]" value="{{safe_classroom}}">
-              <input type="hidden" name="interactions[{{@index}}][clarifying_lp]" value="{{clarifying_lp}}">
-              <input type="hidden" name="interactions[{{@index}}][providing_challenge]" value="{{providing_challenge}}">
-              <input type="hidden" name="interactions[{{@index}}][high_exp]" value="{{high_exp}}">
-              <input type="hidden" name="interactions[{{@index}}][focus_learning]" value="{{focus_learning}}">
-              <input type="hidden" name="interactions[{{@index}}][range_strategies]" value="{{range_strategies}}">
-              {{/ipt}}
-              {{#fb}}
-              <div class='ui-block-b'>
+
+
+              <div class='ui-block-d'>
                 <h3>Feedback </h3>
                 <li class="ui-field-contain">
                   <label for='dataobservation-interactions-{{@index}}-aspiration_feedback'>Giving aspirational feedback</label>
@@ -301,19 +253,7 @@
                   <p class='error dataobservation-interactions-{{@index}}-other-errors'></p>
                 </li>
               </div>
-              {{/fb}}
-              {{^fb}}
-              <input type="hidden" name="interactions[{{@index}}][aspiration_feedback]" value="{{aspiration_feedback}}">
-              <input type="hidden" name="interactions[{{@index}}][jit_feedback]" value="{{jit_feedback}}">
-              <input type="hidden" name="interactions[{{@index}}][whw_feedback]" value="{{whw_feedback}}">
-              <input type="hidden" name="interactions[{{@index}}][task_feedback]" value="{{task_feedback}}">
-              <input type="hidden" name="interactions[{{@index}}][process_feedback]" value="{{process_feedback}}">
-              <input type="hidden" name="interactions[{{@index}}][sr_feedback]" value="{{sr_feedback}}">
-              <input type="hidden" name="interactions[{{@index}}][praise]" value="{{praise}}">
-              <input type="hidden" name="interactions[{{@index}}][peer_feedback]" value="{{peer_feedback}}">
-              <input type="hidden" name="interactions[{{@index}}][seeking_feedback]" value="{{seeking_feedback}}">
-              <input type="hidden" name="interactions[{{@index}}][other]" value="{{other}}">
-              {{/fb}}
+              {{/id}}
             </div>
             <li class="section-interactions"></li>
             {{/interactions}}
@@ -325,7 +265,7 @@
             <li>
               <div class="ui-grid-a">
                 <div class="ui-block-a">
-                  <a href="{{rt}}/Feedbackobservations/{{id}}" data-role="button" data-icon="back" data-direction="reverse">
+                  <a href="{{rt}}/Dataobservations/{{id}}" data-role="button" data-icon="back" data-direction="reverse">
                     Back
                   </a>
                 </div>
