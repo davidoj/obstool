@@ -1,4 +1,4 @@
-#Barkly Observation Recording tool
+# Barkly Observation Recording tool
 =========================================
 
 This is a tool for recording observations of teachers in the NT, Australia. It was developed with the [wq framework].
@@ -7,7 +7,7 @@ It implements a number of observation templates in use in the NT education depar
 
 It was developed with the [wq framework]: http://wq.io/ which allows for use in schools with unreliable internet connections.
 
-##Installation
+## Installation
 
 There isn't currently a public URL available to try it out. To install your own copy, I suggest you first follow the [install instructions] for wq on your system up to creating a "hello world" page. Not all steps are strictly necessary, but if you are not already familiar with wq then this will help you to install obstool.
 
