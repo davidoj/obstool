@@ -41,14 +41,14 @@
             </li>
             <li class="ui-field-contain">
               <label for='dataobservation-teacher_id'>Teacher</label>
-              <select id='dataobservation-teacher_id' data-xform-type='string' name='teacher_id' required>
-                <option value="">Select one...</option>
-                {{#teacher_list}}
-                <option value="{{id}}"{{#selected}} selected{{/selected}}>
-                 {{#outbox}}*{{/outbox}} {{label}}
-                </option>
-                {{/teacher_list}}
-              </select>
+                <select id='dataobservation-teacher_id' data-xform-type='string' name='teacher_id' required>
+                  <option value="">Select one...</option>
+                  {{#teacher_list}}
+                  <option value="{{id}}"{{#selected}} selected{{/selected}}>
+                   {{#outbox}}*{{/outbox}} {{label}}
+                  </option>
+                  {{/teacher_list}}
+                </select>
               <p class='error dataobservation-teacher_id-errors'></p>
             </li>
             <li class="ui-field-contain">
@@ -73,7 +73,7 @@
                 {{^id}}
                 <li class="ui-field-contain">
                   <label for='dataobservation-interactions-{{@index}}-minute'>Minute</label>
-                  <input id='dataobservation-interactions-{{@index}}-minute' type='number' data-xform-type='int' name='interactions[{{@index}}][minute]' required value="{{@index}}">
+                  <input class='minuteindices' id='dataobservation-interactions-{{@index}}-minute' type='number' data-xform-type='int' name='interactions[{{@index}}][minute]' required value="{{@index}}">
                   <p class="hint">How many minutes into the lesson is this observation?</p>
                   <p class='error dataobservation-interactions-{{@index}}-minute-errors'></p>
                 </li>

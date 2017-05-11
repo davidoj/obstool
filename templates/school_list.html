@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>school List{{#parent_id}} for {{parent_label}}{{/parent_id}}</title>
+    <title>Choose a school</title>
     {{>head}}
   </head>
   <body>
     <div data-role="page" data-wq-sync-refresh="true">
       <div data-role="header">
         {{>home}}
-        <h1>school List{{#parent_id}} for {{parent_label}}{{/parent_id}}</h1>
+        <h1>Choose a school</h1>
         {{#page_config.can_edit}}
         <a href="{{rt}}/schools/new" data-icon="plus">
           Add New
@@ -64,7 +64,7 @@
             {{/unsynced}}
             {{#list}}
             <li>
-              <a href="{{rt}}/schools/{{id}}">{{label}}</a>
+              <a href="{{rt}}/Dataobservations/new?school={{id}}">{{label}}</a>
             </li>
             {{/list}}
             <li data-icon="plus" data-theme="b">

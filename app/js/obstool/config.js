@@ -27,13 +27,8 @@ config.store = {
     'defaults': {'format': 'json'}
 }
 
-config.map = {
-    'bounds': [[44.7, -93.6], [45.2, -92.8]]
-};
 
 config.outbox = {};
-
-// config.backgroundSync = 1;
 
 config.transitions = {
     'default': "slide",

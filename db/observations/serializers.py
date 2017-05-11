@@ -1,6 +1,6 @@
 from wq.db.rest.serializers import ModelSerializer
 from wq.db.patterns import serializers as patterns
-from .models import MbMData, DataObservation, NumberedResult, ReviewObservation, Item, Obsform
+from .models import MbMData, DataObservation, NumberedResult, ReviewObservation, Item, Obsform, School
 
 class ItemSerializer(patterns.AttachmentSerializer):
     class Meta(patterns.AttachmentSerializer.Meta):
@@ -25,6 +25,18 @@ class MbMSerializer(patterns.AttachmentSerializer):
 
 class DataObservationSerializer(patterns.AttachedModelSerializer):
     interactions = MbMSerializer(many=True)
+
+    def to_representation(self,obj):
+        result = super(DataObservationSerializer, self).to_representation(obj)
+        result['school_list'] = [
+            {
+                '@index' : i,
+                'label' : str(school),
+                'id' : school.id
+            }
+            for i, school in enumerate(School.objects.all())]
+        return result
+
     class Meta:
         model = DataObservation
         fields = '__all__'
