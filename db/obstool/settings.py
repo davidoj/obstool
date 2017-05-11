@@ -19,19 +19,19 @@ http://wq.io/docs/settings
 import os
 import dj_database_url
 
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)),os.pardir),os.pardir))
+# PROJECT_ROOT = os.path.abspath(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)),os.pardir),os.pardir))
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'htdocs')
-STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(PROJECT_ROOT, 'htdocs')
+# STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'htdocs/js'),
-    os.path.join(PROJECT_ROOT, 'htdocs/images'),
-    os.path.join(PROJECT_ROOT, 'htdocs/css')
-)
+# STATICFILES_DIRS = (
+#     os.path.join(PROJECT_ROOT, 'htdocs/js'),
+#     os.path.join(PROJECT_ROOT, 'htdocs/images'),
+#     os.path.join(PROJECT_ROOT, 'htdocs/css')
+# )
 
 # wq: extra dirname() to account for db/ folder
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))

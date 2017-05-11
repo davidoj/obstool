@@ -1,34 +1,25 @@
+from django.contrib.auth.models import User
 from django.db import models
 from datetime import date
 
 
-class Person(models.Model):
-    firstname = models.CharField(max_length=50)
-    lastname = models.CharField(max_length=50)
-
-    class Meta:
-        abstract = True
-
-    def __str__(self):
-        return "{} {}".format(self.firstname, self.lastname)
-
-class Teacher(Person):
+class Profile(models.Model):
+    TEACHER = 1
+    OBSERVER = 2
+    role = models.PositiveSmallIntegerField(
+        choices = ((TEACHER, 'Teacher'),(OBSERVER, 'Observer')),
+        verbose_name = 'Role'
+        )
     school = models.ForeignKey(
         'School',
-        on_delete=models.CASCADE,
-        verbose_name="Teacher's School")
-    identifier = models.IntegerField(
-        verbose_name='Teacher Identifier',
-        choices = [
-            (1, '1'),
-            (2, '2'),
-            (3, '3'),
-            (4, '4'),
-            (5, '5')
-        ])
+        null=True,
+        default=None,
+        verbose_name='School')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-class Observer(Person):
-    pass
+    def __str__(self):
+        return "{}".format(self.user.username)
+
 
 class School(models.Model):
     name = models.CharField(
@@ -73,8 +64,6 @@ class Observation(models.Model):
             ('B','Observation B (second of two)')],
         verbose_name='Observation Index',
         help_text='Is this the first or second observation?')
-    teacher = models.ForeignKey('Teacher', on_delete=models.CASCADE)
-    observer = models.ForeignKey('Observer', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'observation'
@@ -85,6 +74,10 @@ class Observation(models.Model):
         return 'Observation {} on {}'.format(self.obsnum, self.date)
 
 class ReviewObservation(Observation):
+
+    teacher = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='observations_rev')
+    observer = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='observations_rev_conducted')
+
     class Meta:
         verbose_name = 'Review observation'
         verbose_name_plural = 'Review observations'
@@ -94,6 +87,9 @@ class ReviewObservation(Observation):
 
 
 class DataObservation(Observation):
+
+    teacher = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='observations_data')
+    observer = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='observations_data_conducted')
 
     class Meta:
         verbose_name = 'Data observation'
