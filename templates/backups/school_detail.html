@@ -10,7 +10,7 @@
         {{>home}}
         <h1>{{label}}</h1>
         {{#page_config.can_change}}
-        <a href="{{rt}}/observationitems/{{id}}/edit" data-icon="edit" data-transition="flip">
+        <a href="{{rt}}/schools/{{id}}/edit" data-icon="edit" data-transition="flip">
           Edit
         </a>
         {{/page_config.can_change}}
@@ -19,20 +19,16 @@
           <h1>{{label}}</h1>
           <table>
             <tr>
-              <th>Form</th>
-              <td>{{form_label}}</td>
-            </tr>
-            <tr>
               <th>Name</th>
               <td>{{name}}</td>
             </tr>
             <tr>
-              <th>Description</th>
-              <td>{{description}}</td>
+              <th>Region</th>
+              <td>{{region_label}}</td>
             </tr>
             <tr>
-              <th>Scored Item</th>
-              <td>{{numbered}}</td>
+              <th>Remoteness</th>
+              <td>{{remoteness_label}}</td>
             </tr>
           </table>
       </div>

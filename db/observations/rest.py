@@ -21,7 +21,7 @@ rest.router.register_model(
     DataObservation, 
     serializer=DataObservationSerializer, 
     viewset=QStringModelViewSet,
-    filter=my_observations)
+    cache_filter=my_observations)
 
 rest.router.register_model(
     Profile,

@@ -1,6 +1,15 @@
 from wq.db.rest.serializers import ModelSerializer
 from wq.db.patterns import serializers as patterns
-from .models import MbMData, DataObservation, NumberedResult, ReviewObservation, Item, Obsform, School
+from .models import MbMData, DataObservation, NumberedResult, ReviewObservation, Item, Obsform, School, SIData
+
+class SISerializer(patterns.AttachmentSerializer):
+    class Meta(patterns.AttachmentSerializer.Meta):
+        model = SIData
+        exclude = ('observation',)
+        object_field = 'observation'
+        wq_config = {
+            'initial': 3
+        }
 
 class ItemSerializer(patterns.AttachmentSerializer):
     class Meta(patterns.AttachmentSerializer.Meta):
@@ -25,21 +34,14 @@ class MbMSerializer(patterns.AttachmentSerializer):
 
 class DataObservationSerializer(patterns.AttachedModelSerializer):
     interactions = MbMSerializer(many=True)
-
-    def to_representation(self,obj):
-        result = super(DataObservationSerializer, self).to_representation(obj)
-        result['school_list'] = [
-            {
-                '@index' : i,
-                'label' : str(school),
-                'id' : school.id
-            }
-            for i, school in enumerate(School.objects.all())]
-        return result
+    studentinterviews = SISerializer(many=True)
 
     class Meta:
         model = DataObservation
         fields = '__all__'
+        wq_field_config = {
+            'teacher' : {'filter': {'school_id' : '{{school}}'}}
+        }
 
 class NumberedResultSerializer(patterns.TypedAttachmentSerializer):
     class Meta(patterns.TypedAttachmentSerializer.Meta):

@@ -44,6 +44,12 @@
               <p class="hint">extended description</p>
               <p class='error obsform-items-{{@index}}-description-errors'></p>
             </li>
+            <li class="ui-field-contain">
+              <label for='obsform-items-{{@index}}-numbered'>Scored Item</label>
+              <input id='obsform-items-{{@index}}-numbered' type='text' data-xform-type='string' name='items[{{@index}}][numbered]' required value="{{numbered}}">
+              <p class="hint">should this item be scored on a 1-5 scale?</p>
+              <p class='error obsform-items-{{@index}}-numbered-errors'></p>
+            </li>
             <li class="section-items"></li>
             {{/items}}
             <li>

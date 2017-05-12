@@ -14,6 +14,7 @@ class Profile(models.Model):
         'School',
         null=True,
         default=None,
+        blank=True,
         verbose_name='School')
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
@@ -90,10 +91,22 @@ class DataObservation(Observation):
 
     teacher = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='observations_data')
     observer = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='observations_data_conducted')
+    kti = models.BooleanField(default=False, verbose_name = 'Know Thine Impact')
+    fb = models.BooleanField(default=False, verbose_name = 'Feedback')
+    ipt = models.BooleanField(default=False, verbose_name = 'Inspired and Passionate Teaching')
+    # aitsl1 = models.BooleanField(default=False, verbose_name = 'AITSL 1: Know students & How they learn')
+    # aitsl2 = models.BooleanField(default=False, verbose_name = 'AITSL 1: Know students & How they learn')
+    # aitsl3 = models.BooleanField(default=False, verbose_name = 'AITSL 1: Know students & How they learn')
+    # aitsl4 = models.BooleanField(default=False, verbose_name = 'AITSL 1: Know students & How they learn')
+    # aitsl5 = models.BooleanField(default=False, verbose_name = 'AITSL 1: Know students & How they learn')
+    # aitsl6 = models.BooleanField(default=False, verbose_name = 'AITSL 1: Know students & How they learn')
+    # aitsl7 = models.BooleanField(default=False, verbose_name = 'AITSL 1: Know students & How they learn')
+
 
     class Meta:
         verbose_name = 'Data observation'
         verbose_name_plural = 'Data observations'
+
 
     def __str__(self):
         return 'Observation {} on {} (data)'.format(self.obsnum, self.date)    
@@ -111,6 +124,11 @@ class Item(models.Model):
         help_text='extended description',
         blank=True,
         default='')
+    numbered = models.BooleanField(
+        default=True,
+        verbose_name='Scored Item',
+        help_text='should this item be scored on a 1-5 scale?'
+        )
 
     class Meta:
         verbose_name = 'observation item'
@@ -141,59 +159,15 @@ class NumberedResult(Result):
             (5,'5 (Great deal of evidence)')
         ],
         verbose_name='Score',
-        help_text='How much evidence of this item did you see')
+        help_text='How much evidence of this item did you see',
+        null=True,
+        default=None)
     notes = models.TextField(
         verbose_name='Notes',
         blank=True,
         default='')
 
-
-class MbMData(models.Model):
-    """ Minute-by-minute observation"""
-    observation = models.ForeignKey(
-        'DataObservation', 
-        on_delete=models.CASCADE,
-        related_name='interactions')
-    minute = models.IntegerField(
-        verbose_name='Minute',
-        help_text='How many minutes into the lesson is this observation?')
-    first10 = models.TextField(
-        default='',
-        blank=True,
-        verbose_name='First 10 seconds')
-    location = models.CharField(
-        max_length=2,
-        choices=(
-            ('D',"Desk"),
-            ('S',"Stationary"),
-            ('M','Moving around room'),
-            ('O','Out of room')),
-        verbose_name='Location',
-        blank=True,
-        default='')
-    rest = models.TextField(
-        default='',
-        blank=True,
-        verbose_name='Rest of minute')
-
-    # Know Thine Impact interactions
-    learning_evidence = models.BooleanField(
-        default=False,
-        verbose_name='Gathering Evidence',
-        help_text='Gathering evidence of student progress or learning')
-    evaluating_effect = models.BooleanField(
-        default=False,
-        verbose_name='Evaluating effect',
-        help_text='Evaluating the effect he/she is having on students learning')
-    acting_knowledge = models.BooleanField(
-        default=False,
-        verbose_name='Acting on knowledge',
-        help_text='Acting on his/her knowledge of student learning')
-    sharing_understanding = models.BooleanField(
-        default=False,
-        verbose_name='Students sharing understanding',
-        help_text='The student(s) are sharing their understanding of learning')
-    
+class IPTCodeMixin(models.Model):
     # Inspired and Passionate Teaching interactions
     demonstrating_care = models.BooleanField(
         default=False,
@@ -231,6 +205,32 @@ class MbMData(models.Model):
         verbose_name='Wide range of strategies',
         help_text='Using a wide range of instructional strategies')
 
+    class Meta:
+        abstract = True
+
+class KTICodeMixin(models.Model):
+    # Know Thine Impact interactions
+    learning_evidence = models.BooleanField(
+        default=False,
+        verbose_name='Gathering Evidence',
+        help_text='Gathering evidence of student progress or learning')
+    evaluating_effect = models.BooleanField(
+        default=False,
+        verbose_name='Evaluating effect',
+        help_text='Evaluating the effect he/she is having on students learning')
+    acting_knowledge = models.BooleanField(
+        default=False,
+        verbose_name='Acting on knowledge',
+        help_text='Acting on his/her knowledge of student learning')
+    sharing_understanding = models.BooleanField(
+        default=False,
+        verbose_name='Students sharing understanding',
+        help_text='The student(s) are sharing their understanding of learning')
+    
+    class Meta:
+        abstract = True
+
+class FBCodeMixin(models.Model):
     # Feedback interactions
     aspiration_feedback = models.BooleanField(
         default=False,
@@ -274,6 +274,40 @@ class MbMData(models.Model):
         blank=True,
         default='')
 
+    class Meta:
+        abstract = True
+
+class AITSLCodeMixin(models.Model):
+    pass
+
+class MbMData(IPTCodeMixin,KTICodeMixin,FBCodeMixin):
+    """ Minute-by-minute observation"""
+    observation = models.ForeignKey(
+        'DataObservation', 
+        on_delete=models.CASCADE,
+        related_name='interactions')
+    minute = models.IntegerField(
+        verbose_name='Minute',
+        help_text='How many minutes into the lesson is this observation?')
+    first10 = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='First 10 seconds')
+    location = models.CharField(
+        max_length=2,
+        choices=(
+            ('D',"Desk"),
+            ('S',"Stationary"),
+            ('M','Moving around room'),
+            ('O','Out of room')),
+        verbose_name='Location',
+        blank=True,
+        default='')
+    rest = models.TextField(
+        default='',
+        blank=True,
+        verbose_name='Rest of minute')
+
     other = models.CharField(
         max_length=1000,
         verbose_name='Other',
@@ -287,3 +321,19 @@ class MbMData(models.Model):
     class Meta:
         verbose_name = 'Minute by minute datum'
         verbose_name_plural = 'Minute by minute data'
+
+
+class SIData(models.Model):
+    observation = models.ForeignKey(
+        'DataObservation', 
+        on_delete=models.CASCADE,
+        related_name='studentinterviews')
+    whatlearning = models.TextField(
+        verbose_name = 'What are you learning today?')
+    howsuccess = models.TextField(
+        verbose_name = 'How do you know how well you are going?')
+    whatnext = models.TextField(
+        verbose_name= 'What do you think your next steps are?')
+
+    def __str__(self):
+        return "Student {} of observation {}".format(self.id % 3 , self.observation)

@@ -35,6 +35,14 @@
               <td>{{observer_label}}</td>
             </tr>
             <tr>
+              <th>Codings</th>
+              <td>
+                <table>
+                <tr><td>IPT</td><td>KTI</td><td>FB</td></tr>
+                <tr><td>{{ipt}}</td><td>{{kti}}</td><td>{{fb}}</td></tr>    
+                </table>
+              </td>
+            <tr>
               <th>Interactions</th>
               <td>
                 {{#interactions}}
@@ -150,6 +158,28 @@
                 </table>
                 <hr>
                 {{/interactions}}
+              </td>
+            </tr>
+            <tr>
+              <th>Student Interviews</th>
+              <td>
+                {{#studentinterviews}}
+                <table>
+                  <tr>
+                    <th>What are you learning today?</th>
+                    <td>{{whatlearning}}</td>
+                  </tr>
+                  <tr>
+                    <th>How do you know how well you are going?</th>
+                    <td>{{howsuccess}}</td>
+                  </tr>
+                  <tr>
+                    <th>What do you think your next steps are?</th>
+                    <td>{{whatnext}}</td>
+                  </tr>
+                </table>
+                <hr>
+                {{/studentinterviews}}
               </td>
             </tr>
           </table>

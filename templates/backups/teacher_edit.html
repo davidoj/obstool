@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{^id}}Add{{/id}}{{#id}}Edit{{/id}} teacher</title>
+    {{>head}}
+  </head>
+  <body>
+    <div data-role="page">
+      <div data-role="header">
+        {{>home}}
+        <h1>{{^id}}Add{{/id}}{{#id}}Edit{{/id}} teacher</h1>
+      </div>
+      <div role="main" class="ui-content">
+        <form action="{{svc}}/teachers/{{id}}" method="post" data-ajax="false"
+            data-wq-json="true"
+            {{#outbox_id}}
+              data-wq-outbox-id="{{outbox_id}}"
+              data-wq-outbox-preserve=""
+            {{/outbox_id}}>
+          {{>csrf}}
+          {{#id}}
+          <input type=hidden name="_method" value="PUT">
+          {{/id}}
+          <ul data-role="listview" data-inset="true">
+            <li class="ui-field-contain">
+              <label for='teacher-firstname'>Firstname</label>
+              <input id='teacher-firstname' type='text' data-xform-type='string' name='firstname' required value="{{firstname}}">
+              <p class='error teacher-firstname-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <label for='teacher-lastname'>Lastname</label>
+              <input id='teacher-lastname' type='text' data-xform-type='string' name='lastname' required value="{{lastname}}">
+              <p class='error teacher-lastname-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <label for='teacher-school_id'>Teacher&#x27;s School</label>
+              <select id='teacher-school_id' data-xform-type='string' name='school_id' required>
+                <option value="">Select one...</option>
+                {{#school_list}}
+                <option value="{{id}}"{{#selected}} selected{{/selected}}>
+                 {{#outbox}}*{{/outbox}} {{label}}
+                </option>
+                {{/school_list}}
+              </select>
+              <p class='error teacher-school_id-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <fieldset data-xform-type='select one' data-role='controlgroup' data-type='horizontal'>
+                <legend>Teacher Identifier</legend>
+                {{#identifier_choices}}
+                <input type='radio' id='teacher-identifier-{{name}}' name='identifier' value='{{name}}'{{#selected}} checked{{/selected}}>
+                <label for='teacher-identifier-{{name}}'>{{label}}</label>
+                {{/identifier_choices}}
+              </fieldset>
+              <p class='error teacher-identifier-errors'></p>
+            </li>
+            <li>
+              <div class="ui-grid-a">
+                <div class="ui-block-a">
+                  <a href="{{rt}}/teachers/{{id}}" data-role="button" data-icon="back" data-direction="reverse">
+                    Back
+                  </a>
+                </div>
+                <div class="ui-block-b">
+                  <button type="submit" data-icon="check" data-theme="b">
+                    Submit
+                  </button>
+                </div>
+              </div>
+              <p class="error teacher-errors"></p>
+            </li>
+          </ul>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

@@ -21,6 +21,7 @@
           {{#id}}
           <input type=hidden name="_method" value="PUT">
           {{/id}}
+          <input type=hidden  name='observer_id' value="user.profile">
           <ul data-role="listview" data-inset="true">
             <li class="ui-field-contain">
               <label for='dataobservation-date'>Observation Date</label>
@@ -51,17 +52,18 @@
                 </select>
               <p class='error dataobservation-teacher_id-errors'></p>
             </li>
+
             <li class="ui-field-contain">
-              <label for='dataobservation-observer_id'>Observer</label>
-              <select id='dataobservation-observer_id' data-xform-type='string' name='observer_id' required>
-                <option value="">Select one...</option>
-                {{#observer_list}}
-                <option value="{{id}}"{{#selected}} selected{{/selected}}>
-                 {{#outbox}}*{{/outbox}} {{label}}
-                </option>
-                {{/observer_list}}
-              </select>
-              <p class='error dataobservation-observer_id-errors'></p>
+              <h3>Codings</h3>
+              <label for='dataobservation-ipt'>VL: Inspired and Passionate Teaching</label>
+              <input id='dataobservation-ipt' type='checkbox' data-xform-type='boolean' name='ipt' {{#ipt}} checked {{/ipt}}>  
+              <label for='dataobservation-fb'>VL: Feedback</label>
+              <input id='dataobservation-fb' type='checkbox' data-xform-type='boolean' name='fb' {{#fb}} checked {{/fb}}>
+              <label for='dataobservation-kti'>VL: Know Thine Impact</label>
+              <input id='dataobservation-kti' type='checkbox' data-xform-type='boolean' name='kti' {{#kti}} checked {{/kti}}>
+              <p class='error dataobservation-fb-errors'></p>
+              <p class='error dataobservation-ipt-errors'></p>
+              <p class='error dataobservation-kti-errors'></p>
             </li>
             <li data-role="list-divider">Interactions</li>
             {{#interactions}}
@@ -124,6 +126,8 @@
                 {{/id}}
               </div>
               {{#id}}
+
+              {{#kti}}
               <div class="ui-block-b">
                 <h3>Know Thine Impact</h3>
                 <li class="ui-field-contain">
@@ -147,7 +151,9 @@
                   <p class='error dataobservation-interactions-{{@index}}-sharing_understanding-errors'></p>
                 </li>
               </div>  
+              {{/kti}}
 
+              {{#ipt}}
               <div class="ui-block-c">
                 <h3>Inspired and Passionate Teaching</h3>
                 <li class="ui-field-contain">
@@ -197,8 +203,9 @@
                   <p class='error dataobservation-interactions-{{@index}}-range_strategies-errors'></p>
                 </li>
               </div>
+              {{/ipt}}
 
-
+              {{#fb}}
               <div class='ui-block-d'>
                 <h3>Feedback </h3>
                 <li class="ui-field-contain">
@@ -253,13 +260,42 @@
                   <p class='error dataobservation-interactions-{{@index}}-other-errors'></p>
                 </li>
               </div>
+              {{/fb}}
               {{/id}}
             </div>
             <li class="section-interactions"></li>
             {{/interactions}}
             <li>
               <button type="button" data-wq-action="addattachment" data-wq-section="interactions">
-                 Add Interactions
+                 Add Minute
+              </button>
+            </li>
+            <li data-role="list-divider">Student Interviews</li>
+            {{#studentinterviews}}
+            {{#id}}
+            <input type="hidden" name="studentinterviews[{{@index}}][id]" value="{{id}}">
+            {{/id}}
+            <li class="ui-field-contain">
+              <label for='dataobservation-studentinterviews-{{@index}}-whatlearning'>What are you learning today?</label>
+              <textarea rows="2" cols="50" id='dataobservation-studentinterviews-{{@index}}-whatlearning' name='studentinterviews[{{@index}}][whatlearning]' data-xform-type="text" required>{{whatlearning}}</textarea>
+              <p class='error dataobservation-studentinterviews-{{@index}}-whatlearning-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <label for='dataobservation-studentinterviews-{{@index}}-howsuccess'>How do you know how well you are going?</label>
+              <textarea rows="2" cols="50" id='dataobservation-studentinterviews-{{@index}}-howsuccess' name='studentinterviews[{{@index}}][howsuccess]' data-xform-type="text" required>{{howsuccess}}</textarea>
+              <p class='error dataobservation-studentinterviews-{{@index}}-howsuccess-errors'></p>
+            </li>
+            <li class="ui-field-contain">
+              <label for='dataobservation-studentinterviews-{{@index}}-whatnext'>What do you think your next steps are?</label>
+              <textarea rows="2" cols="50" id='dataobservation-studentinterviews-{{@index}}-whatnext' name='studentinterviews[{{@index}}][whatnext]' data-xform-type="text" required>{{whatnext}}</textarea>
+              <p class='error dataobservation-studentinterviews-{{@index}}-whatnext-errors'></p>
+            </li>
+            <li class="section-studentinterviews"></li>
+            {{/studentinterviews}}
+            <li>
+            <li>
+              <button type="button" data-wq-action="addattachment" data-wq-section="studentinterviews">
+                 Add Interview
               </button>
             </li>
             <li>
