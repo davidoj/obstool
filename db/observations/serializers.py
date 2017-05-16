@@ -39,9 +39,12 @@ class DataObservationSerializer(patterns.AttachedModelSerializer):
     class Meta:
         model = DataObservation
         fields = '__all__'
-        wq_field_config = {
-            'teacher' : {'filter': {'school_id' : '{{school}}'}}
-        }
+        # wq_field_config = {
+        #     'teacher' : 
+        #         {'filter': 
+        #             {'school_id' : '{{#teacher}}{{school_id}}{{/teacher}}'+
+        #                            '{{^teacher}}{{router_info.params.school}}{{/teacher}}'}}
+        # }
 
 class NumberedResultSerializer(patterns.TypedAttachmentSerializer):
     class Meta(patterns.TypedAttachmentSerializer.Meta):

@@ -5,7 +5,7 @@ from .serializers import DataObservationSerializer, ObsformSerializer, ReviewObs
 from .views import QStringModelViewSet
 
 def my_observations(qs, request):
-    return qs.filter(Q(teacher=request.user.profile) | Q(observer=request.user.profile))
+    return qs.filter(Q(teacher=request.user.profile) | Q(observer=request.user))
 
 def teacher_by_school(qs, request):
     rq = request.GET.dict()

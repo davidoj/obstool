@@ -19,7 +19,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "{}".format(self.user.username)
+        return "{} {} ({})".format(self.user.firstname, self.user.lastname, self.user.username)
 
 
 class School(models.Model):
@@ -77,7 +77,7 @@ class Observation(models.Model):
 class ReviewObservation(Observation):
 
     teacher = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='observations_rev')
-    observer = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='observations_rev_conducted')
+    observer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='observations_rev_conducted')
 
     class Meta:
         verbose_name = 'Review observation'
@@ -90,7 +90,7 @@ class ReviewObservation(Observation):
 class DataObservation(Observation):
 
     teacher = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='observations_data')
-    observer = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='observations_data_conducted')
+    observer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='observations_data_conducted')
     kti = models.BooleanField(default=False, verbose_name = 'Know Thine Impact')
     fb = models.BooleanField(default=False, verbose_name = 'Feedback')
     ipt = models.BooleanField(default=False, verbose_name = 'Inspired and Passionate Teaching')
@@ -204,6 +204,12 @@ class IPTCodeMixin(models.Model):
         default=False,
         verbose_name='Wide range of strategies',
         help_text='Using a wide range of instructional strategies')
+    other = models.CharField(
+        max_length=1000,
+        verbose_name='Other',
+        help_text='Please be specific',
+        blank=True,
+        default='')
 
     class Meta:
         abstract = True
@@ -226,6 +232,12 @@ class KTICodeMixin(models.Model):
         default=False,
         verbose_name='Students sharing understanding',
         help_text='The student(s) are sharing their understanding of learning')
+    other = models.CharField(
+        max_length=1000,
+        verbose_name='Other',
+        help_text='Please be specific',
+        blank=True,
+        default='')
     
     class Meta:
         abstract = True

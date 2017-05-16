@@ -21,7 +21,7 @@
           {{#id}}
           <input type=hidden name="_method" value="PUT">
           {{/id}}
-          <input type=hidden  name='observer_id' value="user.profile">
+          <input type=hidden  name='observer_id' value="{{user.id}}">
           <ul data-role="listview" data-inset="true">
             <li class="ui-field-contain">
               <label for='dataobservation-date'>Observation Date</label>
@@ -33,7 +33,7 @@
               <fieldset data-xform-type='select one' data-role='controlgroup' data-type='horizontal'>
                 <legend>Observation Index</legend>
                 {{#obsnum_choices}}
-                <input type='radio' id='dataobservation-obsnum-{{name}}' name='obsnum' value='{{name}}'{{#selected}} checked{{/selected}}>
+                <input type='radio' id='dataobservation-obsnum-{{name}}' name='obsnum' value='{{name}}'{{#selected}} checked{{/selected}} required>
                 <label for='dataobservation-obsnum-{{name}}'>{{label}}</label>
                 {{/obsnum_choices}}
               </fieldset>
