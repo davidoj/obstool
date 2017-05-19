@@ -72,7 +72,13 @@ class Observation(models.Model):
         abstract = True
 
     def __str__(self):
-        return 'Observation {} on {}'.format(self.obsnum, self.date)
+        if self.teacher:
+            return 'Observation {} on {} (data); {school}'.format(self.obsnum, 
+                self.date, 
+                school=self.teacher.school if self.teacher.school else 'no school')    
+        else:
+            return 'Observation {} on {} (data)'.format(self.obsnum, 
+                self.date)
 
 class ReviewObservation(Observation):
 
@@ -84,9 +90,13 @@ class ReviewObservation(Observation):
         verbose_name_plural = 'Review observations'
 
     def __str__(self):
-        return 'Observation {} on {} (review); {school}'.format(self.obsnum, 
-            self.date, 
-            school=self.teacher.school if self.teacher.school else 'no school')    
+        try:
+            return 'Observation {} on {} (data); {school}'.format(self.obsnum, 
+                self.date, 
+                school=self.teacher.school if self.teacher.school else 'no school')    
+        except self._meta.model.teacher.RelatedObjectDoesNotExist:
+            return 'Observation {} on {} (data)'.format(self.obsnum, 
+                self.date)
 
 
 class DataObservation(Observation):
@@ -111,9 +121,13 @@ class DataObservation(Observation):
 
 
     def __str__(self):
-        return 'Observation {} on {} (data); {school}'.format(self.obsnum, 
-            self.date, 
-            schoo=self.teacher.school if self.teacher.school else 'no school')    
+        try:
+            return 'Observation {} on {} (data); {school}'.format(self.obsnum, 
+                self.date, 
+                school=self.teacher.school if self.teacher.school else 'no school')    
+        except self._meta.model.teacher.RelatedObjectDoesNotExist:
+            return 'Observation {} on {} (data)'.format(self.obsnum, 
+                self.date)
 
 class Item(models.Model):
     form = models.ForeignKey(
