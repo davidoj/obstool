@@ -39,6 +39,7 @@
               <p class='hint'>Is this the first or second observation?</p>
               <p class='error dataobservation-obsnum-errors'></p>
             </li>
+            {{^id}}
             <li class="ui-field-contain">
               <label for='dataobservation-teacher_id'>Teacher</label>
                 <select id='dataobservation-teacher_id' data-xform-type='string' name='teacher_id' required>
@@ -66,6 +67,11 @@
               </select>
               <p class='error reviewobservation-observer_id-errors'></p>
             </li>
+            {{/id}}
+            {{#id}}
+            <input type="hidden" name="teacher_id" value="{{teacher_id}}">
+            <input type="hidden" name="observer_id" value="{{observer_id}}">
+            {{/id}}
             <li class="ui-field-contain">
               <h3>Codings</h3>
               <label for='dataobservation-ipt'>VL: Inspired and Passionate Teaching</label>
