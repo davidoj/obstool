@@ -84,7 +84,9 @@ class ReviewObservation(Observation):
         verbose_name_plural = 'Review observations'
 
     def __str__(self):
-        return 'Observation {} on {} (review); {}'.format(self.obsnum, self.date, self.teacher.school)    
+        return 'Observation {} on {} (review); {school}'.format(self.obsnum, 
+            self.date, 
+            school=self.teacher.school if self.teacher.school else 'no school')    
 
 
 class DataObservation(Observation):
@@ -109,7 +111,9 @@ class DataObservation(Observation):
 
 
     def __str__(self):
-        return 'Observation {} on {} (data); {}'.format(self.obsnum, self.date, self.teacher.school)    
+        return 'Observation {} on {} (data); {school}'.format(self.obsnum, 
+            self.date, 
+            schoo=self.teacher.school if self.teacher.school else 'no school')    
 
 class Item(models.Model):
     form = models.ForeignKey(
