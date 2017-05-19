@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>obsform List{{#parent_id}} for {{parent_label}}{{/parent_id}}</title>
+    <title> Observation templates {{#parent_id}} for {{parent_label}}{{/parent_id}}</title>
     {{>head}}
   </head>
   <body>
     <div data-role="page" data-wq-sync-refresh="true">
       <div data-role="header">
         {{>home}}
-        <h1>obsform List{{#parent_id}} for {{parent_label}}{{/parent_id}}</h1>
+        <h1>Observation templates{{#parent_id}} for {{parent_label}}{{/parent_id}}</h1>
         {{#page_config.can_edit}}
         <a href="{{rt}}/Observationtemplates/new" data-icon="plus">
           Add New
@@ -64,14 +64,11 @@
             {{/unsynced}}
             {{#list}}
             <li>
-              <a href="{{rt}}/Observationtemplates/{{id}}">{{label}}</a>
-            </li>
-            <li>
-              <a href="{{rt}}/Reviewobservations/new?form_id={{id}}">New {{label}} observation</a>
+              <a href="{{rt}}/Reviewobservations/new?form_id={{id}}">New {{label}}</a>
             </li>
             {{/list}}
             <li data-icon="plus" data-theme="b">
-              <a href="{{rt}}/Observationtemplates/new{{#parent_id}}?{{parent_page}}_id={{parent_id}}{{/parent_id}}">Add obsform</a>
+              <a href="{{rt}}/Observationtemplates/new{{#parent_id}}?{{parent_page}}_id={{parent_id}}{{/parent_id}}">Create new observation template</a>
             </li>
           </ul>
       </div>

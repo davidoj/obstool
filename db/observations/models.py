@@ -19,7 +19,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "{} {} ({})".format(self.user.firstname, self.user.lastname, self.user.username)
+        return "{} {} ({})".format(self.user.first_name, self.user.last_name, self.user.username)
 
 
 class School(models.Model):
@@ -48,7 +48,7 @@ class Obsform(models.Model):
     name = models.CharField(
         max_length=50)
     def __str__(self):
-        return self.name + "observation template"
+        return self.name
     class Meta:
         verbose_name='Observation template'
         verbose_name_plural='Observation templates'
@@ -124,11 +124,6 @@ class Item(models.Model):
         help_text='extended description',
         blank=True,
         default='')
-    numbered = models.BooleanField(
-        default=True,
-        verbose_name='Scored Item',
-        help_text='should this item be scored on a 1-5 scale?'
-        )
 
     class Meta:
         verbose_name = 'observation item'

@@ -21,6 +21,7 @@
           {{#id}}
           <input type=hidden name="_method" value="PUT">
           {{/id}}
+          <input type=hidden  name='observer_id' value="{{user.id}}">
           <ul data-role="listview" data-inset="true">
             <li class="ui-field-contain">
               <label for='reviewobservation-date'>Observation Date</label>
@@ -52,16 +53,7 @@
               <p class='error reviewobservation-teacher_id-errors'></p>
             </li>
             <li class="ui-field-contain">
-              <label for='reviewobservation-observer_id'>Observer</label>
-              <select id='reviewobservation-observer_id' data-xform-type='string' name='observer_id' required>
-                <option value="">Select one...</option>
-                {{#observer_list}}
-                <option value="{{id}}"{{#selected}} selected{{/selected}}>
-                 {{#outbox}}*{{/outbox}} {{label}}
-                </option>
-                {{/observer_list}}
-              </select>
-              <p class='error reviewobservation-observer_id-errors'></p>
+              <a target=_self href="{{rt}}/admin/auth/user/add/"> Add teacher </a>
             </li>
             <li data-role="list-divider">Results</li>
             {{#results}}
