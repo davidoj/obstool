@@ -21,7 +21,6 @@
           {{#id}}
           <input type=hidden name="_method" value="PUT">
           {{/id}}
-          <input type=hidden  name='observer_id' value="{{user.id}}">
           <ul data-role="listview" data-inset="true">
             <li class="ui-field-contain">
               <label for='dataobservation-date'>Observation Date</label>
@@ -55,7 +54,18 @@
             <li class="ui-field-contain">
               <a target=_self href="{{rt}}/admin/auth/user/add/"> Add teacher </a>
             </li>
-
+            <li class="ui-field-contain">
+              <label for='reviewobservation-observer_id'>Observer</label>
+              <select id='reviewobservation-observer_id' data-xform-type='string' name='observer_id' required>
+                <option value="">Select one...</option>
+                {{#observer_list}}
+                <option value="{{id}}"{{#selected}} selected{{/selected}}>
+                 {{#outbox}}*{{/outbox}} {{label}}
+                </option>
+                {{/observer_list}}
+              </select>
+              <p class='error reviewobservation-observer_id-errors'></p>
+            </li>
             <li class="ui-field-contain">
               <h3>Codings</h3>
               <label for='dataobservation-ipt'>VL: Inspired and Passionate Teaching</label>
@@ -126,6 +136,11 @@
                     <td>{{rest}}</td>
                   </tr>
                 </table>
+                <li class="ui-field-contain">
+                  <label for='dataobservation-interactions-{{@index}}-other'>Other (be specific)</label>
+                  <textarea id='dataobservation-interactions-{{@index}}-other' name='interactions[{{@index}}][other]' data-xform-type="text" >{{other}}</textarea>
+                  <p class='error dataobservation-interactions-{{@index}}-rest-errors'></p>
+                </li>
                 {{/id}}
               </div>
               {{#id}}
@@ -255,12 +270,6 @@
                   <label for='dataobservation-interactions-{{@index}}-seeking_feedback'>Seeking feedback</label>
                   <input id='dataobservation-interactions-{{@index}}-seeking_feedback' type='checkbox' data-xform-type='boolean' name='interactions[{{@index}}][seeking_feedback]' {{#seeking_feedback}} checked {{/seeking_feedback}}>
                   <p class='error dataobservation-interactions-{{@index}}-seeking_feedback-errors'></p>
-                </li>
-                <li class="ui-field-contain">
-                  <label for='dataobservation-interactions-{{@index}}-other'>Other</label>
-                  <input id='dataobservation-interactions-{{@index}}-other' type='text' data-xform-type='string' name='interactions[{{@index}}][other]' value="{{other}}">
-                  <p class="hint">Please be specific</p>
-                  <p class='error dataobservation-interactions-{{@index}}-other-errors'></p>
                 </li>
               </div>
               {{/fb}}

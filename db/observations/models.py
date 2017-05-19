@@ -76,8 +76,8 @@ class Observation(models.Model):
 
 class ReviewObservation(Observation):
 
-    teacher = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='observations_rev')
-    observer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='observations_rev_conducted')
+    teacher = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='reviewfobservations')
+    observer = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='reviewobservations_conducted')
 
     class Meta:
         verbose_name = 'Review observation'
@@ -89,8 +89,8 @@ class ReviewObservation(Observation):
 
 class DataObservation(Observation):
 
-    teacher = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='observations_data')
-    observer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='observations_data_conducted')
+    teacher = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='dataobservations')
+    observer = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='dataobservations_conducted')
     kti = models.BooleanField(default=False, verbose_name = 'Know Thine Impact')
     fb = models.BooleanField(default=False, verbose_name = 'Feedback')
     ipt = models.BooleanField(default=False, verbose_name = 'Inspired and Passionate Teaching')
@@ -199,12 +199,7 @@ class IPTCodeMixin(models.Model):
         default=False,
         verbose_name='Wide range of strategies',
         help_text='Using a wide range of instructional strategies')
-    other = models.CharField(
-        max_length=1000,
-        verbose_name='Other',
-        help_text='Please be specific',
-        blank=True,
-        default='')
+
 
     class Meta:
         abstract = True
@@ -227,12 +222,6 @@ class KTICodeMixin(models.Model):
         default=False,
         verbose_name='Students sharing understanding',
         help_text='The student(s) are sharing their understanding of learning')
-    other = models.CharField(
-        max_length=1000,
-        verbose_name='Other',
-        help_text='Please be specific',
-        blank=True,
-        default='')
     
     class Meta:
         abstract = True
@@ -274,12 +263,6 @@ class FBCodeMixin(models.Model):
         default=False,
         verbose_name='Seeking feedback',
         help_text='Seeking feedback from students')
-    other = models.CharField(
-        max_length=1000,
-        verbose_name='Other',
-        help_text='Please be specific',
-        blank=True,
-        default='')
 
     class Meta:
         abstract = True
@@ -328,6 +311,7 @@ class MbMData(IPTCodeMixin,KTICodeMixin,FBCodeMixin):
     class Meta:
         verbose_name = 'Minute by minute datum'
         verbose_name_plural = 'Minute by minute data'
+        ordering = ['minute']
 
 
 class SIData(models.Model):
