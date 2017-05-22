@@ -1,4 +1,5 @@
 from wq.db.rest.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer as RFModelSerializer
 from wq.db.patterns import serializers as patterns
 from .models import MbMData, DataObservation, NumberedResult, ReviewObservation, Item, Obsform, School, SIData
 
@@ -61,4 +62,18 @@ class ReviewObservationSerializer(patterns.AttachedModelSerializer):
 
     class Meta:
         model = ReviewObservation
+        fields = '__all__'
+
+# Serializers for converting to pandas/representing
+
+class SimpleDataObservationSerializer(RFModelSerializer):
+
+    def to_representation(self, instance):
+        data = super(SimpleDataObservationSerializer,self).to_representation(instance)
+        data.update(instance.get_coding_tallies())
+        print(instance.get_coding_tallies())
+        return data
+
+    class Meta:
+        model = DataObservation
         fields = '__all__'

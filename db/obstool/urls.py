@@ -9,9 +9,11 @@ from wq.db import rest
 rest.autodiscover()
 
 from django.conf import settings
+from observations.views import DataObservationView
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^dataobservations/summary', DataObservationView.as_view()),
 
     # Uncomment to enable python-social-auth URLs
     # url(r'', include('social.apps.django_app.urls', namespace='social')),

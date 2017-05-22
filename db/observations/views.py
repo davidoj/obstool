@@ -1,7 +1,27 @@
 from django.shortcuts import render
 from wq.db.rest.views import ModelViewSet
 from rest_framework.decorators import detail_route
+from .models import DataObservation
+from .serializers import SimpleDataObservationSerializer
+from rest_pandas import PandasView
 
+class DataObservationView(PandasView):
+    queryset = DataObservation.objects.all()
+    serializer_class = SimpleDataObservationSerializer
+
+    def filter_queryset(self,qs):
+        d = self.request.GET.dict()
+        for param in d:
+            if param in ('teacher','observer','date','obsnum'):
+                qs = qs.filter(**{param:d[param]})
+            elif param=='school':
+                qs = qs.filter(teacher__school=d['school'])
+            elif param=='region':
+                qs = qs.filter(teacher__school__region=d['region'])
+            elif param in ('kti','fb','ipt'):
+                qs = qs.filter(**{param:True})
+
+        return qs
 
 
 class QStringModelViewSet(ModelViewSet):
@@ -31,3 +51,4 @@ class QStringModelViewSet(ModelViewSet):
         for key in parms:
             response.data[key] = parms[key]
         return response
+

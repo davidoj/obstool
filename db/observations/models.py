@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from datetime import date
+from collections import Counter
 
 
 class Profile(models.Model):
@@ -119,6 +120,12 @@ class DataObservation(Observation):
         verbose_name = 'Data observation'
         verbose_name_plural = 'Data observations'
 
+    def get_coding_tallies(self):
+        c = Counter()
+        for mbm in self.interactions.all():
+            print(mbm.get_coding_fieldset())
+            c.update(Counter(mbm.get_coding_fieldset()))
+        return c
 
     def __str__(self):
         try:
@@ -128,6 +135,7 @@ class DataObservation(Observation):
         except self._meta.model.teacher.RelatedObjectDoesNotExist:
             return 'Observation {} on {} (data)'.format(self.obsnum, 
                 self.date)
+
 
 class Item(models.Model):
     form = models.ForeignKey(
@@ -180,6 +188,10 @@ class NumberedResult(Result):
         blank=True,
         default='')
 
+class BaseCodeMixin:
+    def get_coding_fieldset(self):
+        return {}
+
 class IPTCodeMixin(models.Model):
     # Inspired and Passionate Teaching interactions
     demonstrating_care = models.BooleanField(
@@ -222,6 +234,21 @@ class IPTCodeMixin(models.Model):
     class Meta:
         abstract = True
 
+    def get_coding_fieldset(self):
+        fieldset = super(IPTCodeMixin, self).get_coding_fieldset()
+        if self.observation.ipt:
+            fieldset.update({
+                            'demonstrating_care':int(self.demonstrating_care),
+                            'providing_feedback':int(self.providing_feedback),
+                            'safe_classroom':int(self.safe_classroom),
+                            'clarifying_lp':int(self.clarifying_lp),
+                            'providing_challenge':int(self.providing_challenge),
+                            'high_exp':int(self.high_exp),
+                            'focus_learning':int(self.focus_learning),
+                            'range_strategies':int(self.range_strategies)
+                            })
+        return fieldset
+
 class KTICodeMixin(models.Model):
     # Know Thine Impact interactions
     learning_evidence = models.BooleanField(
@@ -243,6 +270,17 @@ class KTICodeMixin(models.Model):
     
     class Meta:
         abstract = True
+
+    def get_coding_fieldset(self):
+        fieldset = super(KTICodeMixin, self).get_coding_fieldset()
+        if self.observation.kti:
+            fieldset.update({
+                            'learning_evidence':int(self.learning_evidence),
+                            'evaluating_effect':int(self.evaluating_effect),
+                            'acting_knowledge':int(self.acting_knowledge),
+                            'sharing_understanding':int(self.sharing_understanding)
+                            })
+        return fieldset
 
 class FBCodeMixin(models.Model):
     # Feedback interactions
@@ -285,10 +323,25 @@ class FBCodeMixin(models.Model):
     class Meta:
         abstract = True
 
+    def get_coding_fieldset(self):
+        fieldset = super(FBCodeMixin, self).get_coding_fieldset()
+        if self.observation.fb:
+            fieldset.update({
+                            'aspiration_feedback':int(self.aspiration_feedback),
+                            'jit_feedback':int(self.jit_feedback),
+                            'task_feedback':int(self.task_feedback),
+                            'process_feedback':int(self.process_feedback),
+                            'sr_feedback':int(self.sr_feedback),
+                            'praise':int(self.praise),
+                            'peer_feedback':int(self.peer_feedback),
+                            'seeking_feedback':int(self.seeking_feedback)
+                            })
+        return fieldset
+
 class AITSLCodeMixin(models.Model):
     pass
 
-class MbMData(IPTCodeMixin,KTICodeMixin,FBCodeMixin):
+class MbMData(IPTCodeMixin,KTICodeMixin,FBCodeMixin,BaseCodeMixin):
     """ Minute-by-minute observation"""
     observation = models.ForeignKey(
         'DataObservation', 
