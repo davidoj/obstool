@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Download minute-by-minute data</title>
+    {{>head}}
+  </head>
+  <body>
+    <div data-role="page">
+      <div data-role="header">
+        {{>home}}
+        <h1>Download minute-by-minute data</h1>
+      </div>
+      <div role="main" class="ui-content">
+        <ul data-role="listview">
+          {{#is_authenticated}}
+          <li><a target=_self href="{{rt}}/download/dataobservations?format=xls" download>All observation data</a></li>
+          <li><a target=_self href="{{rt}}/download/dataobservations?region=Alice&format=xls" download>Alice region data</a></li>
+          <li><a target=_self href="{{rt}}/download/dataobservations?region=Barkly&format=xls" download>Barkly region data</a></li>
+          <li><a target=_self href="{{rt}}/download/dataobservations?teacher={{user.profile.id}}&format=xls" download>Observations of me</a></li>
+          <li><a target=_self href="{{rt}}/download/dataobservations?observerer={{user.profile.id}}&format=xls" download>Observations by me</a></li>
+          <li><a target=_self href="{{rt}}/Dataobservations/" download>Choose a specific observation</a></li>
+          {{/is_authenticated}}
+        </ul>
+      </div>
+  </body>
+</html>

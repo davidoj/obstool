@@ -53,3 +53,4 @@ wq.io==1.0.0b1
 wq.start==1.0.0rc1
 xlrd==1.0.0
 xlsconv==0.4.0
+xlwt==1.2.0

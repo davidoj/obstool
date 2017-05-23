@@ -15,176 +15,182 @@
         </a>
         {{/page_config.can_change}}
       </div>
+      <div class='ui-content'>
+        <ul data-role="listview" data-filter="true" data-inset="true">
+          <li><a target=_self href="{{rt}}/download/dataobservations?id={{id}}&format=xls"
+          download>Download data (excel)</a></li>
+        </ul>
+      </div>
       <div role="main" class="ui-content">
-          <h1>{{label}}</h1>
-          <table>
-            <tr>
-              <th>Observation Date</th>
-              <td>{{date}}</td>
-            </tr>
-            <tr>
-              <th>Observation Index</th>
-              <td>{{obsnum_label}}</td>
-            </tr>
-            {{^id}}
-            <tr>
-              <th>Teacher</th>
-              <td>{{teacher_label}}</td>
-            </tr>
-            {{/id}}
-            <tr>
-              <th>Observer</th>
-              <td>{{observer_label}}</td>
-            </tr>
-            <tr>
-              <th>Codings</th>
-              <td>
-                <table>
-                <tr><td>IPT</td><td>KTI</td><td>FB</td></tr>
-                <tr><td>{{ipt}}</td><td>{{kti}}</td><td>{{fb}}</td></tr>    
-                </table>
-              </td>
-            <tr>
-              <th>Interactions</th>
-              <td>
-                {{#interactions}}
-                <table>
-                  <tr>
-                    <th>Minute</th>
-                    <td>{{minute}}</td>
-                  </tr>
-                  <tr>
-                    <th>First 10 seconds</th>
-                    <td>{{first10}}</td>
-                  </tr>
-                  <tr>
-                    <th>Location</th>
-                    <td>{{location_label}}</td>
-                  </tr>
-                  <tr>
-                    <th>Rest of minute</th>
-                    <td>{{rest}}</td>
-                  </tr>
-                  <tr>
-                    <th>Gathering Evidence</th>
-                    <td>{{learning_evidence}}</td>
-                  </tr>
-                  <tr>
-                    <th>Evaluating Effect</th>
-                    <td>{{evaluating_effect}}</td>
-                  </tr>
-                  <tr>
-                    <th>Acting on knowledge</th>
-                    <td>{{acting_knowledge}}</td>
-                  </tr>
-                  <tr>
-                    <th>Students sharing understanding</th>
-                    <td>{{sharing_understanding}}</td>
-                  </tr>
-                  <tr>
-                    <th>Relational trust</th>
-                    <td>{{demonstrating_care}}</td>
-                  </tr>
-                  <tr>
-                    <th>Providing Feedback</th>
-                    <td>{{providing_feedback}}</td>
-                  </tr>
-                  <tr>
-                    <th>Engaged in dialogue</th>
-                    <td>{{dialogue}}</td>
-                  </tr>
-                  <tr>
-                    <th>Safe Classroom</th>
-                    <td>{{safe_classroom}}</td>
-                  </tr>
-                  <tr>
-                    <th>Clarifying learning progressions</th>
-                    <td>{{clarifying_lp}}</td>
-                  </tr>
-                  <tr>
-                    <th>Providing Challenge</th>
-                    <td>{{providing_challenge}}</td>
-                  </tr>
-                  <tr>
-                    <th>High expectations</th>
-                    <td>{{high_exp}}</td>
-                  </tr>
-                  <tr>
-                    <th>Focussing on learning</th>
-                    <td>{{focus_learning}}</td>
-                  </tr>
-                  <tr>
-                    <th>Wide range of strategies</th>
-                    <td>{{range_strategies}}</td>
-                  </tr>
-                  <tr>
-                    <th>Aspirational feedback</th>
-                    <td>{{aspiration_feedback}}</td>
-                  </tr>
-                  <tr>
-                    <th>Just in time</th>
-                    <td>{{jit_feedback}}</td>
-                  </tr>
-                  <tr>
-                    <th>Where, how, where next</th>
-                    <td>{{whw_feedback}}</td>
-                  </tr>
-                  <tr>
-                    <th>Task Feedback</th>
-                    <td>{{task_feedback}}</td>
-                  </tr>
-                  <tr>
-                    <th>Process Feedback</th>
-                    <td>{{process_feedback}}</td>
-                  </tr>
-                  <tr>
-                    <th>Self-regulation feedback</th>
-                    <td>{{sr_feedback}}</td>
-                  </tr>
-                  <tr>
-                    <th>Praise</th>
-                    <td>{{praise}}</td>
-                  </tr>
-                  <tr>
-                    <th>Peer Feedback</th>
-                    <td>{{peer_feedback}}</td>
-                  </tr>
-                  <tr>
-                    <th>Seeking Feedback</th>
-                    <td>{{seeking_feedback}}</td>
-                  </tr>
-                  <tr>
-                    <th>Other</th>
-                    <td>{{other}}</td>
-                  </tr>
-                </table>
-                <hr>
-                {{/interactions}}
-              </td>
-            </tr>
-            <tr>
-              <th>Student Interviews</th>
-              <td>
-                {{#studentinterviews}}
-                <table>
-                  <tr>
-                    <th>What are you learning today?</th>
-                    <td>{{whatlearning}}</td>
-                  </tr>
-                  <tr>
-                    <th>How do you know how well you are going?</th>
-                    <td>{{howsuccess}}</td>
-                  </tr>
-                  <tr>
-                    <th>What do you think your next steps are?</th>
-                    <td>{{whatnext}}</td>
-                  </tr>
-                </table>
-                <hr>
-                {{/studentinterviews}}
-              </td>
-            </tr>
-          </table>
+        <h1>{{label}}</h1>
+        <table>
+          <tr>
+            <th>Observation Date</th>
+            <td>{{date}}</td>
+          </tr>
+          <tr>
+            <th>Observation Index</th>
+            <td>{{obsnum_label}}</td>
+          </tr>
+          {{^id}}
+          <tr>
+            <th>Teacher</th>
+            <td>{{teacher_label}}</td>
+          </tr>
+          {{/id}}
+          <tr>
+            <th>Observer</th>
+            <td>{{observer_label}}</td>
+          </tr>
+          <tr>
+            <th>Codings</th>
+            <td>
+              <table>
+              <tr><td>IPT</td><td>KTI</td><td>FB</td></tr>
+              <tr><td>{{ipt}}</td><td>{{kti}}</td><td>{{fb}}</td></tr>    
+              </table>
+            </td>
+          <tr>
+            <th>Interactions</th>
+            <td>
+              {{#interactions}}
+              <table>
+                <tr>
+                  <th>Minute</th>
+                  <td>{{minute}}</td>
+                </tr>
+                <tr>
+                  <th>First 10 seconds</th>
+                  <td>{{first10}}</td>
+                </tr>
+                <tr>
+                  <th>Location</th>
+                  <td>{{location_label}}</td>
+                </tr>
+                <tr>
+                  <th>Rest of minute</th>
+                  <td>{{rest}}</td>
+                </tr>
+                <tr>
+                  <th>Gathering Evidence</th>
+                  <td>{{learning_evidence}}</td>
+                </tr>
+                <tr>
+                  <th>Evaluating Effect</th>
+                  <td>{{evaluating_effect}}</td>
+                </tr>
+                <tr>
+                  <th>Acting on knowledge</th>
+                  <td>{{acting_knowledge}}</td>
+                </tr>
+                <tr>
+                  <th>Students sharing understanding</th>
+                  <td>{{sharing_understanding}}</td>
+                </tr>
+                <tr>
+                  <th>Relational trust</th>
+                  <td>{{demonstrating_care}}</td>
+                </tr>
+                <tr>
+                  <th>Providing Feedback</th>
+                  <td>{{providing_feedback}}</td>
+                </tr>
+                <tr>
+                  <th>Engaged in dialogue</th>
+                  <td>{{dialogue}}</td>
+                </tr>
+                <tr>
+                  <th>Safe Classroom</th>
+                  <td>{{safe_classroom}}</td>
+                </tr>
+                <tr>
+                  <th>Clarifying learning progressions</th>
+                  <td>{{clarifying_lp}}</td>
+                </tr>
+                <tr>
+                  <th>Providing Challenge</th>
+                  <td>{{providing_challenge}}</td>
+                </tr>
+                <tr>
+                  <th>High expectations</th>
+                  <td>{{high_exp}}</td>
+                </tr>
+                <tr>
+                  <th>Focussing on learning</th>
+                  <td>{{focus_learning}}</td>
+                </tr>
+                <tr>
+                  <th>Wide range of strategies</th>
+                  <td>{{range_strategies}}</td>
+                </tr>
+                <tr>
+                  <th>Aspirational feedback</th>
+                  <td>{{aspiration_feedback}}</td>
+                </tr>
+                <tr>
+                  <th>Just in time</th>
+                  <td>{{jit_feedback}}</td>
+                </tr>
+                <tr>
+                  <th>Where, how, where next</th>
+                  <td>{{whw_feedback}}</td>
+                </tr>
+                <tr>
+                  <th>Task Feedback</th>
+                  <td>{{task_feedback}}</td>
+                </tr>
+                <tr>
+                  <th>Process Feedback</th>
+                  <td>{{process_feedback}}</td>
+                </tr>
+                <tr>
+                  <th>Self-regulation feedback</th>
+                  <td>{{sr_feedback}}</td>
+                </tr>
+                <tr>
+                  <th>Praise</th>
+                  <td>{{praise}}</td>
+                </tr>
+                <tr>
+                  <th>Peer Feedback</th>
+                  <td>{{peer_feedback}}</td>
+                </tr>
+                <tr>
+                  <th>Seeking Feedback</th>
+                  <td>{{seeking_feedback}}</td>
+                </tr>
+                <tr>
+                  <th>Other</th>
+                  <td>{{other}}</td>
+                </tr>
+              </table>
+              <hr>
+              {{/interactions}}
+            </td>
+          </tr>
+          <tr>
+            <th>Student Interviews</th>
+            <td>
+              {{#studentinterviews}}
+              <table>
+                <tr>
+                  <th>What are you learning today?</th>
+                  <td>{{whatlearning}}</td>
+                </tr>
+                <tr>
+                  <th>How do you know how well you are going?</th>
+                  <td>{{howsuccess}}</td>
+                </tr>
+                <tr>
+                  <th>What do you think your next steps are?</th>
+                  <td>{{whatnext}}</td>
+                </tr>
+              </table>
+              <hr>
+              {{/studentinterviews}}
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
   </body>

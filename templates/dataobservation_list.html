@@ -23,6 +23,7 @@
         {{/parent_id}}
         {{#unsynced}}
         <ul data-role="listview" data-inset="true">
+          <li><a href="{{rt}}/download/select">View/download data</a></li>
           <li data-role="list-divider">Outbox</li>
           {{#unsyncedItems}}
           <li data-icon="{{#error}}alert{{/error}}{{^error}}minus{{/error}}">
@@ -65,6 +66,7 @@
             {{#list}}
             <li>
               <a href="{{rt}}/Dataobservations/{{id}}">{{label}}</a>
+              <a class='ui-btn ui-icon-carat-r' href="{{rt}}/Dataobservations/{{id}}/edit"> Code </a>
             </li>
             {{/list}}
             <li data-icon="plus" data-theme="b">

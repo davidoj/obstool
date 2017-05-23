@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 from datetime import date
-from collections import Counter
+from collections import Counter, OrderedDict
+from .util import replace_chars
 
 
 class Profile(models.Model):
@@ -71,6 +72,7 @@ class Observation(models.Model):
         verbose_name = 'observation'
         verbose_name_plural = 'observations'
         abstract = True
+        ordering = ['-date']
 
     def __str__(self):
         if self.teacher:
@@ -123,9 +125,17 @@ class DataObservation(Observation):
     def get_coding_tallies(self):
         c = Counter()
         for mbm in self.interactions.all():
-            print(mbm.get_coding_fieldset())
             c.update(Counter(mbm.get_coding_fieldset()))
         return c
+
+    def get_notes_comments(self):
+        d = OrderedDict()
+        for mbm in self.interactions.all():
+            if mbm.get_notes():
+                d['Notes minute {}'.format(mbm.minute)] = replace_chars(mbm.get_notes())
+            if mbm.other:
+                d['Comments minute {}'.format(mbm.minute)] = replace_chars(mbm.other)
+        return d
 
     def __str__(self):
         try:
@@ -379,6 +389,9 @@ class MbMData(IPTCodeMixin,KTICodeMixin,FBCodeMixin,BaseCodeMixin):
     def __str__(self):
         return "Minute {} of observation {}".format(self.minute, self.observation)
 
+    def get_notes(self):
+        return self.first10 + '; ' + self.rest
+
     class Meta:
         verbose_name = 'Minute by minute datum'
         verbose_name_plural = 'Minute by minute data'
@@ -391,11 +404,20 @@ class SIData(models.Model):
         on_delete=models.CASCADE,
         related_name='studentinterviews')
     whatlearning = models.TextField(
-        verbose_name = 'What are you learning today?')
+        verbose_name = 'What are you learning today?',
+        blank=True,
+        null=True,
+        default='')
     howsuccess = models.TextField(
-        verbose_name = 'How do you know how well you are going?')
+        verbose_name = 'How do you know how well you are going?',
+        blank=True,
+        null=True,
+        default='')
     whatnext = models.TextField(
-        verbose_name= 'What do you think your next steps are?')
+        verbose_name= 'What do you think your next steps are?',
+        blank=True,
+        null=True,
+        default='')
 
     def __str__(self):
         return "Student {} of observation {}".format(self.id % 3 , self.observation)

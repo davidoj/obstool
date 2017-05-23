@@ -5,6 +5,10 @@ from .models import DataObservation
 from .serializers import SimpleDataObservationSerializer
 from rest_pandas import PandasView
 
+def get_summary(request):
+    return render(request, 'get_summary.html')
+
+
 class DataObservationView(PandasView):
     queryset = DataObservation.objects.all()
     serializer_class = SimpleDataObservationSerializer
@@ -12,7 +16,7 @@ class DataObservationView(PandasView):
     def filter_queryset(self,qs):
         d = self.request.GET.dict()
         for param in d:
-            if param in ('teacher','observer','date','obsnum'):
+            if param in ('teacher','observer','date','obsnum','id'):
                 qs = qs.filter(**{param:d[param]})
             elif param=='school':
                 qs = qs.filter(teacher__school=d['school'])

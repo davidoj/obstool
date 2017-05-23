@@ -30,7 +30,7 @@ class MbMSerializer(patterns.AttachmentSerializer):
         exclude = ('observation',)
         object_field = 'observation'
         wq_config = {
-            'initial': 15,
+            'initial': 16,
         }
 
 class DataObservationSerializer(patterns.AttachedModelSerializer):
@@ -71,7 +71,9 @@ class SimpleDataObservationSerializer(RFModelSerializer):
     def to_representation(self, instance):
         data = super(SimpleDataObservationSerializer,self).to_representation(instance)
         data.update(instance.get_coding_tallies())
-        print(instance.get_coding_tallies())
+
+        data.update(instance.get_notes_comments())
+
         return data
 
     class Meta:
