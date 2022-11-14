@@ -16,7 +16,7 @@ linecache2==1.0.0
 Markdown==2.6.8
 matplotlib==2.0.2
 natural-keys==1.1.0
-numpy==1.12.1
+numpy==1.22.0
 olefile==0.44
 packaging==16.8
 pandas==0.20.1
